@@ -1,5 +1,11 @@
-<div>
-  <input type="text" placeholder="Name, fragment or date">
-  <button>Search</button>
-  <button>Add Course</button>
+<div class="toolbox-container">
+  <form class="toolbox__form">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Name, fragment or date">
+    </mat-form-field>
+    <button mat-stroked-button>Search</button>
+  </form>
+  <button mat-stroked-button class="toolbox__add-course">
+    <mat-icon>add</mat-icon> Add Course
+  </button>
 </div>

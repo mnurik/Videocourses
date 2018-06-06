@@ -5,4 +5,14 @@ header {
   right: 0;
   height: 50px;
   background: #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header > .logo-container, header > .account-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 200px;
 }

@@ -1,0 +1,16 @@
+.toolbox-container {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.toolbox__form {
+  display: flex;
+  justify-content: space-around;
+  width: 330px;
+  margin: 10px;
+}
+
+.toolbox__add-course {
+  margin: 10px;
+}
