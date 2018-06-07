@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
 interface CourseInterface {
-  Id: number,
-  Title: string,
-  CreationDate: string,
-  Duration: number,
-  Description: string
+  id: number,
+  title: string,
+  creationDate: string,
+  duration: number,
+  description: string
 }
 
 class Course implements CourseInterface {
-  constructor(public Id, public Title, public CreationDate, public Duration, public Description) {
+  constructor(public id, public title, public creationDate, public duration, public description) {
 
   }
 
-  edit(Title, Description) {
-    this.Title = Title;
-    this.Description = Description;
+  edit(title, description) {
+    this.title = title;
+    this.description = description;
   }
 }
 
@@ -25,8 +25,11 @@ class Course implements CourseInterface {
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
+  course: object;
 
-  constructor() { }
+  constructor() {
+    this.course = new Course(0, "Learn Angular", "01.01.2018", 120, "Angular is awesome");
+  }
 
   ngOnInit() {
   }

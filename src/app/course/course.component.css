@@ -1,0 +1,15 @@
+.course-container {
+  width: 100%;
+}
+
+h3 {
+  margin: 0;
+}
+
+.course__info {
+  width: 88%;
+}
+
+.course__time {
+  width: 160px;
+}

@@ -1,2 +1,19 @@
-<mat-list-item> Course Item </mat-list-item>
+<mat-list-item>
+  <div class="flex-sb course-container">
+    <div class="course__info">
+      <div class="flex-sb course__details">
+        <h3>{{course.title}}</h3>
+        <div class="flex-sb course__time">
+          <span>{{course.duration}} min</span>
+          <span>{{course.creationDate}}</span>
+        </div>
+      </div>
+      <span>{{course.description}}</span>
+    </div>
+    <div class="course__actions">
+      <button mat-stroked-button>Edit</button>
+      <button mat-stroked-button>Remove</button>
+    </div>
+  </div>
+</mat-list-item>
 <mat-divider></mat-divider>

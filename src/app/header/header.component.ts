@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 
 interface UserInterface {
-  Id: number,
-  FirstName: string,
-  LastName: string
+  id: number,
+  firstName: string,
+  lastName: string
 }
 
 class User implements UserInterface {
-  constructor(public Id, public FirstName, public LastName) {
+  constructor(public id, public firstName, public lastName) {
 
   }
 }
+
+let someValue: any = "this is a string";
+
+let strLength: number = someValue.length;
 
 @Component({
   selector: 'app-header',
@@ -18,8 +22,11 @@ class User implements UserInterface {
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  user: object;
 
-  constructor() { }
+  constructor() {
+    this.user = new User(0, "Nurlan", "Mirzayev");
+  }
 
   ngOnInit() {
   }
