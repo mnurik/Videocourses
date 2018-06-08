@@ -8,9 +8,15 @@ header {
   align-items: center;
 }
 
-header > .logo-container, header > .account-container {
+header > * {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+header > .logo-container {
+  width: 170px;
+}
+header > .account-container {
   width: 250px;
 }
