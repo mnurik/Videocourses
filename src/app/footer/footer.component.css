@@ -5,6 +5,9 @@ footer {
   right: 0;
   height: 50px;
   background: #eee;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
 }
 
 p {

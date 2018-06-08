@@ -2,6 +2,11 @@
   width: 100%;
 }
 
+.mat-list-item {
+  height: initial;
+  padding: 5px;
+}
+
 h3 {
   margin: 0;
 }
@@ -11,5 +16,14 @@ h3 {
 }
 
 .course__time {
-  width: 160px;
+  width: 220px;
+}
+
+.course__actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.course__actions > button:first-child {
+  margin-bottom: 5px;
 }

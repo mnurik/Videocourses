@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import humanize from "humanize-duration";
 
-interface CourseInterface {
+export interface CourseInterface {
   id: number,
   title: string,
   creationDate: string,
@@ -8,14 +9,12 @@ interface CourseInterface {
   description: string
 }
 
-class Course implements CourseInterface {
-  constructor(public id, public title, public creationDate, public duration, public description) {
-
+export class CourseClass implements CourseInterface {
+  constructor(public id, public title, public description, public creationDate, public duration) {
   }
 
-  edit(title, description) {
-    this.title = title;
-    this.description = description;
+  getReadableDuration() {
+    return humanize(this.duration * 60 * 1000);
   }
 }
 
@@ -25,10 +24,11 @@ class Course implements CourseInterface {
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
-  course: object;
+
+  @Input() course: CourseInterface;
+  @Output() delete = new EventEmitter();
 
   constructor() {
-    this.course = new Course(0, "Learn Angular", "01.01.2018", 120, "Angular is awesome");
   }
 
   ngOnInit() {

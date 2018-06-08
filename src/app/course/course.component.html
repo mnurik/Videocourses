@@ -1,18 +1,20 @@
-<mat-list-item>
+<mat-list-item class="mat-list-item">
   <div class="flex-sb course-container">
     <div class="course__info">
       <div class="flex-sb course__details">
         <h3>{{course.title}}</h3>
         <div class="flex-sb course__time">
-          <span>{{course.duration}} min</span>
+          <span>{{course.getReadableDuration()}}</span>
           <span>{{course.creationDate}}</span>
         </div>
       </div>
       <span>{{course.description}}</span>
     </div>
     <div class="course__actions">
-      <button mat-stroked-button>Edit</button>
-      <button mat-stroked-button>Remove</button>
+      <button mat-stroked-button>
+        <mat-icon>edit</mat-icon> Edit</button>
+      <button mat-stroked-button (click)="delete.emit()">
+        <mat-icon>delete</mat-icon> Remove</button>
     </div>
   </div>
 </mat-list-item>
