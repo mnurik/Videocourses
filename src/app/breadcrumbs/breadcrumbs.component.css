@@ -3,3 +3,13 @@ nav {
   border-top: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
 }
+
+ul {
+  display: flex;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+}
