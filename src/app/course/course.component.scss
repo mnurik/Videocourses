@@ -22,8 +22,9 @@ h3 {
 .course__actions {
   display: flex;
   flex-direction: column;
+  
+  > button:first-child {
+    margin-bottom: 5px;
+  }
 }
 
-.course__actions > button:first-child {
-  margin-bottom: 5px;
-}

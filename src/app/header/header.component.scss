@@ -1,0 +1,24 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: #eee;
+  align-items: center;
+
+  > * {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  > .logo-container {
+    width: 170px;
+  }
+
+  > .account-container {
+    width: 250px;
+  }
+
+}
