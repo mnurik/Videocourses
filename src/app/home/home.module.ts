@@ -1,11 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home/home.component';
-import { ToolboxComponent } from './toolbox/toolbox.component';
+import { NgModule } from '@angular/core';
+import {
+  MatButtonModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+} from '@angular/material';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ListComponent } from './course-list/course-list.component';
 import { CourseComponent } from './course/course.component';
-import { MatInputModule, MatIconModule, MatListModule, MatButtonModule } from '@angular/material';
+import { HomeComponent } from './home/home.component';
+import { ToolboxComponent } from './toolbox/toolbox.component';
 
 @NgModule({
   imports: [
@@ -13,17 +18,15 @@ import { MatInputModule, MatIconModule, MatListModule, MatButtonModule } from '@
     MatInputModule,
     MatIconModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
   ],
-  exports: [
-    HomeComponent
-  ],
+  exports: [HomeComponent],
   declarations: [
     HomeComponent,
     ToolboxComponent,
     BreadcrumbsComponent,
     ListComponent,
-    CourseComponent
-  ]
+    CourseComponent,
+  ],
 })
-export class HomeModule { }
+export class HomeModule {}
