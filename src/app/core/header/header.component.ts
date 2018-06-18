@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { UserClass } from '../user-class';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
   user: UserClass;
@@ -13,5 +14,5 @@ export class HeaderComponent implements OnInit {
     this.user = new UserClass(0, 'Nurlan', 'Mirzayev');
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
