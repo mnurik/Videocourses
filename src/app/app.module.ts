@@ -16,9 +16,9 @@ import { LoginModule } from './login/login.module';
     HomeModule,
     CoreModule,
     LoginModule,
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forChild(ROUTES),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
