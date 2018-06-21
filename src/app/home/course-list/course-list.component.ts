@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CourseInterface } from '../course-interface';
-import { CoursesService } from './courses.service';
+import { CoursesService } from '../courses.service';
 
 @Component({
   selector: 'app-course-list',
@@ -9,17 +9,11 @@ import { CoursesService } from './courses.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent implements OnInit {
-  public courses: CourseInterface[] = [];
+  @Input() courses: CourseInterface[];
+  @Output() deleteCourse = new EventEmitter();
 
-  constructor(private coursesService: CoursesService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.courses = this.coursesService.getList();
-  }
-
-  onDelete(id: number) {
-    this.courses = this.courses.filter(
-      (course: CourseInterface) => course.id !== id,
-    );
   }
 }

@@ -1,9 +1,9 @@
 <div class="flex-sb toolbox-container">
-  <form class="toolbox__form">
+  <form class="toolbox__form" (ngSubmit)="searchCourse.emit(searchInput.value)">
     <mat-form-field>
-      <input matInput type="text" placeholder="Name, fragment or date">
+      <input #searchInput matInput type="text" placeholder="Name, fragment or date">
     </mat-form-field>
-    <button mat-stroked-button>Search</button>
+    <button type="submit" mat-stroked-button>Search</button>
   </form>
   <button mat-stroked-button class="toolbox__add-course">
     <mat-icon>add</mat-icon> Add Course

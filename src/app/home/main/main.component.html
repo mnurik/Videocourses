@@ -1,0 +1,5 @@
+<app-breadcrumbs></app-breadcrumbs>
+
+<app-toolbox (searchCourse)="onSearch($event)"></app-toolbox>
+
+<app-course-list [courses]="courses" (deleteCourse)="onDelete($event)"></app-course-list>

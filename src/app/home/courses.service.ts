@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { CourseClass } from '../course-class';
-import { CourseInterface } from '../course-interface';
+import { CourseClass } from './course-class';
+import { CourseInterface } from './course-interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-
+  private courses: CourseInterface[];
   constructor() { }
 
   public getList(): CourseInterface[] {
-    return [
+    this.courses = [
       new CourseClass(0, 'Learn Angular', 'Angular Awesome', '01.01.2018', 50),
       new CourseClass(
         1,
@@ -20,5 +20,21 @@ export class CoursesService {
         120,
       ),
     ];
+
+    return this.courses;
+  }
+
+  public onDelete(id: number): CourseInterface[] {
+    this.courses = this.courses.filter(
+      (course: CourseInterface) => course.id !== id,
+    );
+    return this.courses;
+  }
+
+  public onSearch(value: string): CourseInterface[] {
+    return this.courses.filter((course: CourseInterface) => {
+      const re = new RegExp(value, 'i');
+      return (`${course.description} ${course.title} ${course.creationDate}`).match(re);
+    });
   }
 }
