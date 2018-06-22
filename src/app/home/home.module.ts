@@ -7,11 +7,11 @@ import {
   MatInputModule,
   MatListModule,
 } from '@angular/material';
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { ListComponent } from './course-list/course-list.component';
-import { CourseComponent } from './course/course.component';
+import { RouterModule } from '@angular/router';
+import { CoreModule } from '../core/core.module';
+import { CourseItemComponent } from './course-item/course-item.component';
+import { CourseListComponent } from './course-list/course-list.component';
 import { HomeRoutingModule } from './home-routing.module';
-import { MainComponent } from './main/main.component';
 import { ToolboxComponent } from './toolbox/toolbox.component';
 
 @NgModule({
@@ -23,14 +23,13 @@ import { ToolboxComponent } from './toolbox/toolbox.component';
     MatListModule,
     MatButtonModule,
     HomeRoutingModule,
+    RouterModule,
+    CoreModule,
   ],
-  exports: [MainComponent],
   declarations: [
-    MainComponent,
     ToolboxComponent,
-    BreadcrumbsComponent,
-    ListComponent,
-    CourseComponent,
+    CourseListComponent,
+    CourseItemComponent,
   ],
 })
 export class HomeModule { }

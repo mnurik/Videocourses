@@ -8,8 +8,13 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
 })
 export class ToolboxComponent implements OnInit {
   @Output() searchCourse = new EventEmitter();
+  searchText = '';
 
   constructor() { }
 
   ngOnInit() { }
+
+  search() {
+    this.searchCourse.emit(this.searchText);
+  }
 }

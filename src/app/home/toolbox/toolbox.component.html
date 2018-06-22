@@ -1,7 +1,7 @@
 <div class="flex-sb toolbox-container">
-  <form class="toolbox__form" (ngSubmit)="searchCourse.emit(searchInput.value)">
+  <form class="toolbox__form" (ngSubmit)="search()">
     <mat-form-field>
-      <input #searchInput matInput type="text" placeholder="Name, fragment or date">
+      <input [(ngModel)]="searchText" name="searchText" matInput type="text" placeholder="Name, fragment or date">
     </mat-form-field>
     <button type="submit" mat-stroked-button>Search</button>
   </form>

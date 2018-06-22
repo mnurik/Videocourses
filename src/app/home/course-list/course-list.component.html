@@ -1,4 +1,8 @@
+<app-breadcrumbs></app-breadcrumbs>
+
+<app-toolbox (searchCourse)="onSearch($event)"></app-toolbox>
+
 <mat-list>
-  <app-course *ngFor="let course of courses" [course]="course" (delete)="deleteCourse.emit(course.id)"></app-course>
-  <button mat-stroked-button class="load__more">Load More</button>
+  <app-course-item *ngFor="let course of courses" [course]="course" (delete)="onDelete(course.id)"></app-course-item>
+  <button mat-stroked-button class="load__more" (click)="loadMore()">Load More</button>
 </mat-list>
