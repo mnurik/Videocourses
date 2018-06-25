@@ -8,9 +8,9 @@ export class CourseClass implements CourseInterface {
     public description,
     public creationDate,
     public duration,
-  ) {}
+  ) { }
 
-  getReadableDuration() {
+  public getReadableDuration() {
     return humanize(this.duration * 60 * 1000);
   }
 }

@@ -7,14 +7,14 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolboxComponent implements OnInit {
-  @Output() searchCourse = new EventEmitter();
-  searchText = '';
+  @Output() private searchCourse = new EventEmitter();
+  public searchText = '';
 
   constructor() { }
 
-  ngOnInit() { }
+  public ngOnInit() { }
 
-  search() {
+  public search() {
     this.searchCourse.emit(this.searchText);
   }
 }

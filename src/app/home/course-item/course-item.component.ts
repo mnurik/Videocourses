@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { CourseInterface } from '../course-interface';
+import { CourseClass } from '../course-class';
 
 @Component({
   selector: 'app-course-item',
@@ -9,16 +9,16 @@ import { CourseInterface } from '../course-interface';
 })
 export class CourseItemComponent implements OnInit, OnDestroy {
 
-  @Input() course: CourseInterface;
-  @Output() delete = new EventEmitter();
+  @Input() public course: CourseClass;
+  @Output() public delete = new EventEmitter();
 
   constructor() {
   }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     console.log(`>>Destroy<< ${this.course.id} course-item component`);
   }
 
