@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { CourseItemComponent } from './course-item/course-item.component';
 import { CourseListComponent } from './course-list/course-list.component';
+import { CoursesService } from './courses.service';
 import { HomeRoutingModule } from './home-routing.module';
 import { ToolboxComponent } from './toolbox/toolbox.component';
 
@@ -25,6 +26,9 @@ import { ToolboxComponent } from './toolbox/toolbox.component';
     HomeRoutingModule,
     RouterModule,
     CoreModule,
+  ],
+  providers: [
+    CoursesService,
   ],
   declarations: [
     ToolboxComponent,
