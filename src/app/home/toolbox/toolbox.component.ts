@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolboxComponent implements OnInit {
-  @Output() private searchCourse = new EventEmitter();
+  @Output() public searchCourse = new EventEmitter();
   public searchText = '';
 
   constructor() { }

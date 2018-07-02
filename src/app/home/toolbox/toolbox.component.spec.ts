@@ -23,4 +23,11 @@ describe('ToolboxComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call search method', () => {
+    const testText = 'Test Text';
+    component.searchText = testText;
+    component.searchCourse.subscribe((enteredText) => expect(enteredText).toBe(testText));
+    component.search();
+  });
 });

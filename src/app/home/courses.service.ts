@@ -6,7 +6,7 @@ import { CourseInterface } from './course-interface';
   providedIn: 'root',
 })
 export class CoursesService {
-  private courses: CourseInterface[];
+  public courses: CourseInterface[];
   constructor() { }
 
   public getList(): CourseInterface[] {
