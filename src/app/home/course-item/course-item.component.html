@@ -4,7 +4,7 @@
       <div class="flex-sb course__details">
         <h3>{{course.title}}</h3>
         <div class="flex-sb course__time">
-          <span>{{course.getReadableDuration()}}</span>
+          <span>{{course.duration | readableDuration}}</span>
           <span>{{course.creationDate}}</span>
         </div>
       </div>

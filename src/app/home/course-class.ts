@@ -1,16 +1,11 @@
-import humanize from 'humanize-duration';
 import { CourseInterface } from './course-interface';
 
 export class CourseClass implements CourseInterface {
   constructor(
-    public id,
-    public title,
-    public description,
-    public creationDate,
-    public duration,
+    public id: number,
+    public title: string,
+    public description: string,
+    public creationDate: string,
+    public duration: number,
   ) { }
-
-  public getReadableDuration() {
-    return humanize(this.duration * 60 * 1000);
-  }
 }
