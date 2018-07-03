@@ -1,9 +1,19 @@
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CourseClass } from '../course-class';
-import { CourseItemComponent } from './course-item.component';
 import { ReadableDurationPipe } from '../readable-duration.pipe';
+import { CourseItemComponent } from './course-item.component';
+
+@Component({
+  template: `
+    <app-course-item
+      [course]="course"
+    ></app-course-item>`,
+})
+class TestHostComponent {
+  public course: CourseClass = new CourseClass(132, 'Test Course', 'Test Description', '01.01.2018', 120);
+}
 
 describe('CourseItemComponent as class', () => {
   let courseItemComponent: CourseItemComponent;
@@ -17,22 +27,20 @@ describe('CourseItemComponent as class', () => {
 });
 
 describe('CourseItemComponent', () => {
-  let component: CourseItemComponent;
-  let fixture: ComponentFixture<CourseItemComponent>;
-  const expectedCourse: CourseClass = new CourseClass(132, 'Test Course', 'Test Description', '01.01.2018', 120);
+  let component: TestHostComponent;
+  let fixture: ComponentFixture<TestHostComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseItemComponent, ReadableDurationPipe],
+      declarations: [CourseItemComponent, TestHostComponent, ReadableDurationPipe],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CourseItemComponent);
+    fixture = TestBed.createComponent(TestHostComponent);
     component = fixture.componentInstance;
-    component.course = expectedCourse;
     fixture.detectChanges();
   });
 
