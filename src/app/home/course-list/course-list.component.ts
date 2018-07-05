@@ -21,15 +21,11 @@ import { CoursesService } from '../courses.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseListComponent implements
-  OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
+  OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
   @Output() public deleteCourse = new EventEmitter();
   public courses: CourseInterface[] = [];
-
+  public ngDoCheckChecker = false;
   constructor(private coursesService: CoursesService) { }
-
-  public ngOnChanges() {
-    console.log('%c>>ngOnChanges<<' + ' %clifecycle runs in CourseListComponent', 'color:red', 'color:black');
-  }
 
   public ngOnInit() {
     this.courses = this.coursesService.getList();
@@ -37,6 +33,7 @@ export class CourseListComponent implements
 
   public ngDoCheck() {
     console.log('%c>>ngDoCheck<<' + ' %clifecycle runs in CourseListComponent', 'color:red', 'color:black');
+    this.ngDoCheckChecker = true;
   }
   public ngAfterContentInit() {
     console.log('%c>>ngAfterContentInit<<' + ' %clifecycle runs in CourseListComponent', 'color:red', 'color:black');

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { CourseClass } from '../course-class';
 
 @Component({
@@ -7,12 +7,16 @@ import { CourseClass } from '../course-class';
   styleUrls: ['./course-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseItemComponent implements OnInit, OnDestroy {
+export class CourseItemComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() public course: CourseClass;
   @Output() public delete = new EventEmitter();
 
   constructor() {
+  }
+
+  public ngOnChanges() {
+    console.log('%c>>ngOnChanges<<' + ' %clifecycle runs in CourseListComponent', 'color:red', 'color:black');
   }
 
   public ngOnInit() {

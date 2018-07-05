@@ -64,4 +64,18 @@ describe('CourseListComponent', () => {
     expect(component.loadMore).toBeTruthy();
     expect(component.loadMore()).toBe(undefined);
   });
+
+  it('should call ngDoCheck lifecycle hook', () => {
+    fixture.detectChanges();
+    expect(component.ngDoCheckChecker).toBeTruthy();
+  });
+
+  xit('should call ngDoCheck lifecycle hook', () => {
+    const newExpectedCourses = [...expectedCourses, new CourseClass(125, 'test title', 'test desc. 3', '01/01/2019', 180)];
+    component.courses = newExpectedCourses;
+    expect(component.courses).toEqual(jasmine.arrayContaining(newExpectedCourses));
+    fixture.detectChanges();
+    console.log('component.courses', component.courses); // Console proves that field courses changed correctly for component
+    expect(fixture.nativeElement.querySelectorAll('app-course-item').length).toEqual(3);
+  });
 });
