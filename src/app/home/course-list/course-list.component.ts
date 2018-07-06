@@ -28,6 +28,9 @@ export class CourseListComponent implements
   constructor(private coursesService: CoursesService) { }
 
   public ngOnInit() {
+    console.log('====================================');
+    console.log('ngOnInit called for');
+    console.log('====================================');
     this.courses = this.coursesService.getList();
   }
 

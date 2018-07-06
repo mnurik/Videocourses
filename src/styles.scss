@@ -12,3 +12,12 @@ body {
   display: flex !important;
   justify-content: space-between !important;
 }
+
+.content-centered { 
+  display: flex;
+  justify-content: center;
+}
+
+.minor-text {
+  color: #ddd;
+}

@@ -5,7 +5,7 @@
         <h3>{{course.title}}</h3>
         <div class="flex-sb course__time">
           <span>{{course.duration | readableDuration}}</span>
-          <span>{{course.creationDate}}</span>
+          <span>{{course.creationDate | date:"mm.dd.yyyy"}}</span>
         </div>
       </div>
       <span>{{course.description}}</span>

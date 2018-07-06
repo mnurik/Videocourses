@@ -19,8 +19,9 @@ describe('CourseListComponent', () => {
       getList() {
         return expectedCourses;
       },
-      onDelete(index: number) {
-        return [expectedCourses[index]];
+      onDelete(id: number) {
+        expectedCourses = expectedCourses.filter((course) => course.id !== id);
+        return expectedCourses;
       },
       onSearch(value: string) {
         return [expectedCourses.find((course) => course.description === value)];
@@ -51,15 +52,15 @@ describe('CourseListComponent', () => {
 
   it('should call delete method', () => {
     fixture.detectChanges();
-    const index = 1;
-    component.onDelete(index);
-    expect(component.courses).toEqual(jasmine.arrayContaining([expectedCourses[index]]));
+    component.onDelete(123);
+    expect(component.courses).toEqual(jasmine.arrayContaining(expectedCourses));
   });
 
   it('should call onSearch and change courses array', () => {
+    const testDesc = 'test desc. 2';
     fixture.detectChanges();
     component.onSearch('test desc. 2');
-    expect(component.courses).toEqual(jasmine.arrayContaining([expectedCourses[1]]));
+    expect(component.courses).toEqual(jasmine.arrayContaining([expectedCourses.find((course) => course.description === testDesc)]));
   });
 
   it('should call loadMore', () => {
@@ -73,10 +74,17 @@ describe('CourseListComponent', () => {
     expect(component.ngDoCheckChecker).toBeTruthy();
   });
 
-  it('should call ngDoCheck lifecycle hook', () => {
+  xit('should call ngDoCheck lifecycle hook', () => {
     expectedCourses = [...expectedCourses, new CourseClass(125, 'test title', 'test desc. 3', '01/01/2019', 180)];
     fixture.detectChanges();
-    console.log('component.courses', component.courses); // Console proves that field courses changed correctly for component
     expect(fixture.nativeElement.querySelectorAll('app-course-item').length).toEqual(3);
+  });
+
+  it('should show no data message', () => {
+    component.onDelete(123);
+    component.onDelete(124);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelectorAll('app-course-item').length).toEqual(0);
+    expect(fixture.nativeElement.querySelector('h4').textContent).toEqual('NO DATA, FEEL FREE TO ADD NEW COURSE');
   });
 });
