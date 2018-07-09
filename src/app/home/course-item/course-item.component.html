@@ -1,11 +1,14 @@
-<mat-list-item class="mat-list-item" *ngIf="course">
+<mat-list-item class="mat-list-item" *ngIf="course" [appStatus]="course.creationDate">
   <div class="flex-sb course-container">
     <div class="course__info">
       <div class="flex-sb course__details">
-        <h3>{{course.title}}</h3>
+        <h3>
+          {{course.title | uppercase}}
+          <mat-icon *ngIf="course.topRated">star</mat-icon>
+        </h3>
         <div class="flex-sb course__time">
           <span>{{course.duration | readableDuration}}</span>
-          <span>{{course.creationDate | date:"mm.dd.yyyy"}}</span>
+          <span>{{course.creationDate | date:"MM.dd.yyyy"}}</span>
         </div>
       </div>
       <span>{{course.description}}</span>

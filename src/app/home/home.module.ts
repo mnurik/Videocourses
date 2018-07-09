@@ -14,6 +14,7 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { CoursesService } from './courses.service';
 import { HomeRoutingModule } from './home-routing.module';
 import { ReadableDurationPipe } from './readable-duration.pipe';
+import { StatusDirective } from './status.directive';
 import { ToolboxComponent } from './toolbox/toolbox.component';
 
 @NgModule({
@@ -36,6 +37,7 @@ import { ToolboxComponent } from './toolbox/toolbox.component';
     CourseListComponent,
     CourseItemComponent,
     ReadableDurationPipe,
+    StatusDirective,
   ],
 })
 export class HomeModule { }
