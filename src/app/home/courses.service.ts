@@ -20,7 +20,7 @@ export class CoursesService {
         120,
         true,
       ),
-      new CourseClass(2, 'Learn React', 'React is Awesome', 1514761200000, 230),
+      new CourseClass(2, 'Learn React', 'React is Awesome', 1546297200000, 230),
       new CourseClass(3, 'Learn Vue', 'Vue is Awesome', new Date().getTime(), 30),
     ];
 

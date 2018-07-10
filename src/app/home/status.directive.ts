@@ -1,20 +1,24 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
 @Directive({
   selector: '[appStatus]',
 })
-export class StatusDirective {
+export class StatusDirective implements OnInit {
   @Input() appStatus: number;
-  creationDate: any = moment(this.appStatus);
+  creationDate: any;
   today: any = moment();
   before14Days: any = moment().subtract(14, 'days');
 
-  constructor(el: ElementRef) {
+  constructor(private el: ElementRef) { }
+
+  ngOnInit() {
+    this.creationDate = moment(this.appStatus);
+    const duration = moment.duration(this.creationDate.diff(this.before14Days)).as('days');
     if (this.creationDate > this.today) {
-      el.nativeElement.style.border = '2px solid blue';
-    } else if (this.creationDate.diff(this.before14Days) < 14) {
-      el.nativeElement.style.border = '2px solid green';
+      this.el.nativeElement.style.border = '2px solid blue';
+    } else if (duration < 14 && duration > 0) {
+      this.el.nativeElement.style.border = '2px solid green';
     }
   }
 
