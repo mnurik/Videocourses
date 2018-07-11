@@ -1,6 +1,8 @@
 import { CourseInterface } from './course-interface';
 
 export class CourseClass implements CourseInterface {
+  public liked: boolean;
+
   constructor(
     public id: number,
     public title: string,

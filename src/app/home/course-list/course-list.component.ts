@@ -13,11 +13,13 @@ import {
 } from '@angular/core';
 import { CourseInterface } from '../course-interface';
 import { CoursesService } from '../courses.service';
+import { FilterPipe } from '../filter.pipe';
 
 @Component({
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
+  providers: [FilterPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseListComponent implements
@@ -25,12 +27,9 @@ export class CourseListComponent implements
   @Output() public deleteCourse = new EventEmitter();
   public courses: CourseInterface[] = [];
   public ngDoCheckChecker = false;
-  constructor(private coursesService: CoursesService) { }
+  constructor(private coursesService: CoursesService, private filterCourses: FilterPipe) { }
 
   public ngOnInit() {
-    console.log('====================================');
-    console.log('ngOnInit called for');
-    console.log('====================================');
     this.courses = this.coursesService.getList();
   }
 
@@ -55,8 +54,13 @@ export class CourseListComponent implements
     this.courses = this.coursesService.onDelete(id);
   }
 
+  public onLike(id: number) {
+    this.courses = this.coursesService.onLike(id);
+  }
+
   public onSearch(value: string) {
-    this.courses = this.coursesService.onSearch(value);
+    // this.courses = this.coursesService.onSearch(value);
+    this.courses = this.filterCourses.transform(this.coursesService.getList(), value);
   }
 
   public loadMore() {

@@ -15,7 +15,7 @@ import { CourseItemComponent } from './course-item.component';
     ></app-course-item>`,
 })
 class TestHostComponent {
-  public course: CourseClass = new CourseClass(132, 'Test Course', 'Test Description', '01.01.2018', 120);
+  public course: CourseClass = new CourseClass(132, 'Test Course', 'Test Description', new Date().getTime(), 120);
   public onDelete() { }
 }
 

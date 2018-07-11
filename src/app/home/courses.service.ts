@@ -11,7 +11,7 @@ export class CoursesService {
 
   public getList(): CourseInterface[] {
     this.courses = [
-      new CourseClass(0, 'Learn Angular', 'Angular is Awesome', 1514761200000, 50),
+      new CourseClass(0, 'Learn Angular', 'Angular is Awesome', 1514761200000, 50, true),
       new CourseClass(
         1,
         'Learn TypeScript',
@@ -21,7 +21,7 @@ export class CoursesService {
         true,
       ),
       new CourseClass(2, 'Learn React', 'React is Awesome', 1546297200000, 230),
-      new CourseClass(3, 'Learn Vue', 'Vue is Awesome', new Date().getTime(), 30),
+      new CourseClass(3, 'Learn Vue', 'Vue is Awesome', new Date().getTime(), 30, true),
     ];
 
     return this.courses;
@@ -39,5 +39,13 @@ export class CoursesService {
       const re = new RegExp(value, 'i');
       return (`${course.description} ${course.title} ${course.creationDate}`).match(re);
     });
+  }
+
+  public onLike(id: number): CourseInterface[] {
+    this.courses = this.courses.map((course) => ({
+      ...course,
+      liked: course.id === id,
+    }));
+    return this.courses;
   }
 }

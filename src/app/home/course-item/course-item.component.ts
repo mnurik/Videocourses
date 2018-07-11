@@ -11,6 +11,7 @@ export class CourseItemComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() public course: CourseClass;
   @Output() public delete = new EventEmitter();
+  @Output() public like = new EventEmitter();
 
   constructor() {
   }

@@ -16,6 +16,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { ReadableDurationPipe } from './readable-duration.pipe';
 import { StatusDirective } from './status.directive';
 import { ToolboxComponent } from './toolbox/toolbox.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { ToolboxComponent } from './toolbox/toolbox.component';
     CourseItemComponent,
     ReadableDurationPipe,
     StatusDirective,
+    FilterPipe,
   ],
 })
 export class HomeModule { }
