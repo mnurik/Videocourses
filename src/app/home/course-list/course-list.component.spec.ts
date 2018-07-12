@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CourseClass } from '../../shared/course-class';
+import { mockCourses } from '../../shared/mock-data';
 import { CoursesService } from '../courses.service';
 import { CourseListComponent } from './course-list.component';
 
@@ -9,10 +10,7 @@ describe('CourseListComponent', () => {
   let component: CourseListComponent;
   let fixture: ComponentFixture<CourseListComponent>;
   let coursesServiceStub: Partial<CoursesService>;
-  let expectedCourses: CourseClass[] = [
-    new CourseClass(123, 'test title', 'test desc. 1', new Date('01/01/2018').getTime(), 120),
-    new CourseClass(124, 'test title', 'test desc. 2', new Date('01/01/2018').getTime(), 60),
-  ];
+  let expectedCourses: CourseClass[] = mockCourses;
 
   beforeEach(async(() => {
     coursesServiceStub = {
@@ -25,6 +23,12 @@ describe('CourseListComponent', () => {
       },
       onSearch(value: string) {
         return [expectedCourses.find((course) => course.description === value)];
+      },
+      onLike(id: number) {
+        return mockCourses.map((course) => ({
+          ...course,
+          liked: course.id === id,
+        }));
       },
     };
 
@@ -47,20 +51,19 @@ describe('CourseListComponent', () => {
   it('should have two child components', () => {
     fixture.detectChanges();
     expect(component.courses).toEqual(jasmine.arrayContaining(expectedCourses));
-    expect(fixture.nativeElement.querySelectorAll('app-course-item').length).toEqual(2);
+    expect(fixture.nativeElement.querySelectorAll('app-course-item').length).toEqual(4);
   });
 
   it('should call delete method', () => {
     fixture.detectChanges();
-    component.onDelete(123);
+    component.onDelete(mockCourses[0].id);
     expect(component.courses).toEqual(jasmine.arrayContaining(expectedCourses));
   });
 
   it('should call onSearch and change courses array', () => {
-    const testDesc = 'test desc. 2';
     fixture.detectChanges();
-    component.onSearch('test desc. 2');
-    expect(component.courses).toEqual(jasmine.arrayContaining([expectedCourses.find((course) => course.description === testDesc)]));
+    component.onSearch(mockCourses[1].description);
+    expect(component.courses).toEqual(jasmine.arrayContaining([mockCourses[1]]));
   });
 
   it('should call loadMore', () => {
@@ -86,5 +89,11 @@ describe('CourseListComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelectorAll('app-course-item').length).toEqual(0);
     expect(fixture.nativeElement.querySelector('h4').textContent).toEqual('NO DATA, FEEL FREE TO ADD NEW COURSE');
+  });
+
+  it('should call onLike and change courses array', () => {
+    fixture.detectChanges();
+    component.onLike(mockCourses[0].id);
+    expect(component.courses.map((course) => course.liked)).toEqual(jasmine.arrayContaining([true, false, false, false]));
   });
 });
