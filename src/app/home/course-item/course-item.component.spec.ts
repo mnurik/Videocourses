@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { By } from '@angular/platform-browser';
 import { EventEmitter } from 'events';
-import { CourseClass } from '../course-class';
+import { CourseClass } from '../../shared/course-class';
 import { ReadableDurationPipe } from '../readable-duration.pipe';
 import { CourseItemComponent } from './course-item.component';
 
@@ -61,7 +61,7 @@ describe('CourseItemComponent', () => {
     const durationDisplayByCSS: HTMLElement = de.query(By.css('.course__time > span')).nativeElement;
     expect(durationDisplayByCSS.innerText).toBe('2 hours');
     expect(durationDisplay.textContent).toBe('2 hours');
-    component.course = new CourseClass(133, 'Test Course New', 'Test Description New', '01.01.2019', 50);
+    component.course = new CourseClass(133, 'Test Course New', 'Test Description New', new Date('01.01.2019').getTime(), 50);
     // Tell Angular to update the display binding through the title pipe
     fixture.detectChanges();
     expect(durationDisplayByCSS.innerText).toBe('50 minutes');

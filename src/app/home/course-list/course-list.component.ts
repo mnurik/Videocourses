@@ -11,7 +11,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { CourseInterface } from '../course-interface';
+import { CourseInterface } from '../../shared/course-interface';
 import { CoursesService } from '../courses.service';
 import { FilterPipe } from '../filter.pipe';
 

@@ -4,7 +4,7 @@
       <div class="flex-sb course__details">
         <h3>
           {{course.title | uppercase}}
-          <mat-icon (click)="like.emit()" *ngIf="course.topRated" [ngClass]="{'top-rated': course.liked}">star</mat-icon>
+          <mat-icon (click)="like.emit()" *ngIf="course.topRated" [ngClass]="{'top-rated': course.liked, 'cursor-pointer': true}">star</mat-icon>
         </h3>
         <div class="flex-sb course__time">
           <span>{{course.duration | readableDuration}}</span>
