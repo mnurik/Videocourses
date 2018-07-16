@@ -3,8 +3,8 @@
     <img src="assets/angular.svg" alt="Logo" width="50">
     <h2>Logo</h2>
   </div>
-  <div class="account-container">
+  <div class="account-container" *ngIf="user">
     <span>{{user.firstName}} {{user.lastName}}</span>
-    <button mat-stroked-button routerLink="../login">Log off</button>
+    <button mat-stroked-button (click)="onLogOut()">Log off</button>
   </div>
 </header>

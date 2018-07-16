@@ -27,4 +27,10 @@ export class CourseItemComponent implements OnInit, OnChanges, OnDestroy {
     console.log(`>>Destroy<< ${this.course.id} course-item component`);
   }
 
+  public onDelete() {
+    if (window.confirm('Do you really want to delete this course?')) {
+      this.delete.emit();
+    }
+  }
+
 }

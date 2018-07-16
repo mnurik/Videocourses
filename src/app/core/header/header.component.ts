@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from '../../login/login.service';
 import { UserClass } from '../user-class';
 
 @Component({
@@ -7,12 +9,21 @@ import { UserClass } from '../user-class';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, DoCheck {
   user: UserClass;
 
-  constructor() {
-    this.user = new UserClass(0, 'Nurlan', 'Mirzayev');
+  constructor(private loginService: LoginService, private router: Router) {
   }
 
-  ngOnInit() { }
+  ngDoCheck() {
+    this.user = this.loginService.getUserInfo();
+  }
+
+  ngOnInit() {
+  }
+
+  public onLogOut() {
+    this.loginService.logout();
+    this.router.navigate(['/login']);
+  }
 }
