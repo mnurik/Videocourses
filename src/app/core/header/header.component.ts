@@ -20,9 +20,16 @@ export class HeaderComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+    if (!this.loginService.isAuthenticated()) {
+      this.logout();
+    }
   }
 
-  public onLogOut() {
+  public onLogOut(): void {
+    this.logout();
+  }
+
+  public logout(): void {
     this.loginService.logout();
     this.router.navigate(['/login']);
   }
