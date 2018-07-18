@@ -52,7 +52,7 @@ export class CoursesService {
   }
 
   public getById(id: number): CourseInterface {
-    return this.courses.find((course: CourseInterface) => course.id === id);
+    return mockCourses.find((course: CourseInterface) => course.id === id);
   }
 
   public onLike(id: number): CourseInterface[] {

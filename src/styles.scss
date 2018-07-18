@@ -25,3 +25,10 @@ body {
 .cursor-pointer {
   cursor: pointer !important;
 }
+
+a.disabled {
+  cursor: initial;
+  pointer-events: none;
+  color: black;
+  text-decoration: initial;
+}

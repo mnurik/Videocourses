@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
+import { CoursesService } from '../home/courses.service';
 import { CourseRoutingModule } from './course-routing.module';
 import { CourseComponent } from './course.component';
 
@@ -15,5 +16,6 @@ import { CourseComponent } from './course.component';
     CoreModule,
   ],
   declarations: [CourseComponent],
+  providers: [CoursesService],
 })
 export class CourseModule { }

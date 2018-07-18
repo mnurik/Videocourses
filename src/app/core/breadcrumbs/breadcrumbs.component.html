@@ -1,10 +1,6 @@
 <nav>
-  <a routerLink="../">
+  <a *ngFor="let link of links" [routerLink]="link.to" [ngClass]="{disabled: !link.hasOwnProperty('to')}">
     <mat-icon>keyboard_arrow_right</mat-icon>
-    List of Courses
-  </a>
-  <a routerLink="../course">
-    <mat-icon>keyboard_arrow_right</mat-icon>
-    Course Details
+    {{link.name}}
   </a>
 </nav>
