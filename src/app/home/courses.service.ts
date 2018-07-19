@@ -51,8 +51,10 @@ export class CoursesService {
     });
   }
 
-  public getById(id: number): CourseInterface {
-    return mockCourses.find((course: CourseInterface) => course.id === id);
+  public getById(id: string): CourseInterface {
+    if (/[0-9]/g.test(id)) {
+      return mockCourses.find((course: CourseInterface) => course.id === +id);
+    }
   }
 
   public onLike(id: number): CourseInterface[] {

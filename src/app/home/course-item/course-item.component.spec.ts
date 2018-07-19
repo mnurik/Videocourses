@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { By } from '@angular/platform-browser';
 import { EventEmitter } from 'events';
+import { APP_BASE_HREF } from '../../../../node_modules/@angular/common';
+import { RouterModule } from '../../../../node_modules/@angular/router';
 import { CourseClass } from '../../shared/course-class';
 import { ReadableDurationPipe } from '../readable-duration.pipe';
 import { CourseItemComponent } from './course-item.component';
@@ -37,13 +39,16 @@ describe('CourseItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterModule.forRoot([])],
       declarations: [CourseItemComponent, TestHostComponent, ReadableDurationPipe],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
+    spyOn(window, 'confirm').and.returnValue(true);
     fixture = TestBed.createComponent(TestHostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -74,6 +79,7 @@ describe('CourseItemComponent', () => {
     const deleteButton: HTMLElement = hostElement.querySelector('.course__actions > button:nth-child(2)');
     expect(deleteButton.textContent).toBe('delete Remove');
     deleteButton.click();
+    expect(window.confirm).toHaveBeenCalledWith('Do you really want to delete this course?');
     expect(component.onDelete).toHaveBeenCalled();
   });
 });
