@@ -6,7 +6,7 @@ import { UserInterface } from '../core/user-interface';
   providedIn: 'root',
 })
 export class LoginService {
-  user: UserInterface = new UserClass(0, 'Admin', 'Admin', 'admin', '123');
+  private user: UserInterface = new UserClass(0, 'Admin', 'Admin', 'admin', '123');
 
   constructor() { }
 

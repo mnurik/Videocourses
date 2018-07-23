@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { CourseItemComponent } from './course-item/course-item.component';
 import { CourseListComponent } from './course-list/course-list.component';
-import { CoursesService } from './courses.service';
 import { FilterPipe } from './filter.pipe';
 import { HomeRoutingModule } from './home-routing.module';
 import { ReadableDurationPipe } from './readable-duration.pipe';
@@ -31,7 +30,6 @@ import { ToolboxComponent } from './toolbox/toolbox.component';
     CoreModule,
   ],
   providers: [
-    CoursesService,
   ],
   declarations: [
     ToolboxComponent,

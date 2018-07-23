@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, DoCheck, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { LoginService } from '../../login/login.service';
 import { UserClass } from '../user-class';
 
@@ -9,20 +10,20 @@ import { UserClass } from '../user-class';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit, DoCheck {
-  user: UserClass;
+export class HeaderComponent implements OnInit, OnDestroy {
+  user$ = new BehaviorSubject<UserClass>(null);
+
+  private routerSubscription: Subscription;
 
   constructor(private loginService: LoginService, private router: Router) {
   }
-
-  ngDoCheck() {
-    this.user = this.loginService.getUserInfo();
-  }
-
   ngOnInit() {
     if (!this.loginService.isAuthenticated()) {
       this.logout();
     }
+
+    this.routerSubscription = this.router.events
+      .subscribe(() => this.user$.next(this.loginService.getUserInfo()));
   }
 
   public onLogOut(): void {
@@ -32,5 +33,9 @@ export class HeaderComponent implements OnInit, DoCheck {
   public logout(): void {
     this.loginService.logout();
     this.router.navigate(['/login']);
+  }
+
+  public ngOnDestroy() {
+    this.routerSubscription.unsubscribe();
   }
 }

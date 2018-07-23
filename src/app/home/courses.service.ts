@@ -3,15 +3,12 @@ import { CourseClass } from '../shared/course-class';
 import { CourseInterface } from '../shared/course-interface';
 import { mockCourses } from '../shared/mock-data';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CoursesService {
   public courses: CourseInterface[];
-  constructor() { }
 
   public getList(): CourseInterface[] {
-    this.courses = mockCourses;
+    this.courses = [...mockCourses];
 
     return this.courses;
   }

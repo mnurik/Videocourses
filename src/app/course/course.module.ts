@@ -16,6 +16,12 @@ import { CourseComponent } from './course.component';
     CoreModule,
   ],
   declarations: [CourseComponent],
-  providers: [CoursesService],
 })
-export class CourseModule { }
+export class CourseModule {
+  public static forRoot() {
+    return {
+      ngModule: CommonModule,
+      providers: [CoursesService],
+    };
+  }
+}
