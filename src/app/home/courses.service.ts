@@ -5,11 +5,9 @@ import { mockCourses } from '../shared/mock-data';
 
 @Injectable()
 export class CoursesService {
-  public courses: CourseInterface[];
+  public courses: CourseInterface[] = [...mockCourses];
 
   public getList(): CourseInterface[] {
-    this.courses = [...mockCourses];
-
     return this.courses;
   }
 
@@ -50,7 +48,7 @@ export class CoursesService {
 
   public getById(id: string): CourseInterface {
     if (/[0-9]/g.test(id)) {
-      return mockCourses.find((course: CourseInterface) => course.id === +id);
+      return this.courses.find((course: CourseInterface) => course.id === +id);
     }
   }
 
