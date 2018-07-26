@@ -3,7 +3,7 @@
     <div class="course__info">
       <div class="flex-sb course__details">
         <div>
-          <h3 [routerLink]="['/course', course.id]">
+          <h3>
             {{course.title | uppercase}}
           </h3>
           <mat-icon (click)="like.emit()" *ngIf="course.topRated" [ngClass]="{'top-rated': course.liked, 'cursor-pointer': true}">star</mat-icon>
@@ -16,7 +16,7 @@
       <span>{{course.description}}</span>
     </div>
     <div class="course__actions">
-      <button mat-stroked-button color="primary">
+      <button mat-stroked-button color="primary" [routerLink]="['/course', course.id]">
         <mat-icon>edit</mat-icon> Edit</button>
       <button mat-stroked-button (click)="onDelete()" color="warn">
         <mat-icon>delete</mat-icon> Remove</button>

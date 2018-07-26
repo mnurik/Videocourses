@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule, MatIconModule, MatInputModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { CoursesService } from '../home/courses.service';
@@ -14,6 +15,10 @@ import { CourseComponent } from './course.component';
     CourseRoutingModule,
     RouterModule,
     CoreModule,
+    MatInputModule,
+    MatButtonModule,
+    RouterModule,
+    FormsModule,
   ],
   declarations: [CourseComponent],
 })

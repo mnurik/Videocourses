@@ -6,4 +6,5 @@ export interface CourseInterface {
   description: string;
   topRated: boolean;
   liked: boolean;
+  authors: string;
 }

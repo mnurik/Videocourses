@@ -9,6 +9,7 @@ export class CourseClass implements CourseInterface {
     public description: string,
     public creationDate: number,
     public duration: number,
+    public authors: string,
     public topRated: boolean = false,
   ) { }
 }

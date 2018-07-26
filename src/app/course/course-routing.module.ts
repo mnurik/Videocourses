@@ -4,6 +4,7 @@ import { CourseComponent } from './course.component';
 
 const routes: Routes = [
   { path: ':id', component: CourseComponent, pathMatch: 'full' },
+  { path: '**', component: CourseComponent },
 ];
 
 @NgModule({

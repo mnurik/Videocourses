@@ -11,22 +11,17 @@ export class CoursesService {
     return this.courses;
   }
 
-  public onCreate(title: string, description: string, duration: number): CourseInterface[] {
+  public onCreate({ title, description, duration, authors, creationDate }): CourseInterface[] {
     this.courses = this.courses.concat([
-      new CourseClass(Date.now(), title, description, Date.now(), duration),
+      new CourseClass(Date.now(), title, description, creationDate, duration, authors),
     ]);
     return this.courses;
   }
 
-  public onUpdate(id: number, title: string, description: string, duration: number): CourseInterface[] {
+  public onUpdate(data: CourseInterface): CourseInterface[] {
     this.courses = this.courses.map((course: CourseInterface) => {
-      if (course.id === id) {
-        return {
-          ...course,
-          title,
-          description,
-          duration,
-        };
+      if (course.id === data.id) {
+        return Object.assign({}, course, data);
       } else { return course; }
     });
     return this.courses;
@@ -48,7 +43,7 @@ export class CoursesService {
 
   public getById(id: string): CourseInterface {
     if (/[0-9]/g.test(id)) {
-      return this.courses.find((course: CourseInterface) => course.id === +id);
+      return { ...this.courses.find((course: CourseInterface) => course.id === +id) };
     }
   }
 
