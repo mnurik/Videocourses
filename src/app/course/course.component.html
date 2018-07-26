@@ -9,17 +9,18 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Date:" [(ngModel)]="course.creationDate" name="creationDate">
+    <input matInput type="date" placeholder="Date:" [value]="creationDate | date:'YYYY-MM-DD'" (blur)=" onCreationDateChange()"
+      name="creationDate ">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="number" placeholder="Duration:" [(ngModel)]="course.duration" name="duration">
+    <input matInput type="number " placeholder="Duration: " [(ngModel)]="course.duration " name="duration ">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Authors: " [(ngModel)]="course.authors " name="authors ">
+    <input matInput type="number " placeholder="Authors: " [(ngModel)]="course.authors " name="authors ">
   </mat-form-field>
 
-  <button type="submit " mat-stroked-button (click)="update()">Save</button>
-  <button type="submit " mat-stroked-button routerLink="/ ">Cancel</button>
+  <button type="submit" mat-stroked-button (click)="update() ">Save</button>
+  <button type="submit" mat-stroked-button routerLink="/ ">Cancel</button>
 </form>
