@@ -43,7 +43,7 @@ describe('StatusDirective', () => {
 
   it('should add colored border "blue"', () => {
     const border = des[1].nativeElement.style.border;
-    expect(border).toBe('2px solid blue');
+    expect(border).toBe('2px dotted blue');
   });
 
   it('should not add border', () => {

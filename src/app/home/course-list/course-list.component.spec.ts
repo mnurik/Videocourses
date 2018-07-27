@@ -78,7 +78,10 @@ describe('CourseListComponent', () => {
   });
 
   xit('should call ngDoCheck lifecycle hook', () => {
-    expectedCourses = [...expectedCourses, new CourseClass(125, 'test title', 'test desc. 3', new Date('01/01/2019').getTime(), 180)];
+    expectedCourses = [
+      ...expectedCourses,
+      new CourseClass(125, 'test title', 'test desc. 3', new Date('01/01/2019').getTime(), 180, 'Test Authors')
+    ];
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelectorAll('app-course-item').length).toEqual(3);
   });

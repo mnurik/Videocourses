@@ -17,7 +17,7 @@ import { CourseItemComponent } from './course-item.component';
     ></app-course-item>`,
 })
 class TestHostComponent {
-  public course: CourseClass = new CourseClass(132, 'Test Course', 'Test Description', new Date().getTime(), 120);
+  public course: CourseClass = new CourseClass(132, 'Test Course', 'Test Description', new Date().getTime(), 120, 'Test Authors');
   public onDelete() { }
 }
 
@@ -66,7 +66,8 @@ describe('CourseItemComponent', () => {
     const durationDisplayByCSS: HTMLElement = de.query(By.css('.course__time > span')).nativeElement;
     expect(durationDisplayByCSS.innerText).toBe('2 hours');
     expect(durationDisplay.textContent).toBe('2 hours');
-    component.course = new CourseClass(133, 'Test Course New', 'Test Description New', new Date('01.01.2019').getTime(), 50);
+    component.course =
+      new CourseClass(133, 'Test Course New', 'Test Description New', new Date('01.01.2019').getTime(), 50, 'Test Authors');
     // Tell Angular to update the display binding through the title pipe
     fixture.detectChanges();
     expect(durationDisplayByCSS.innerText).toBe('50 minutes');
