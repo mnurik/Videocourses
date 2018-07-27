@@ -9,8 +9,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="date" placeholder="Date:" [value]="creationDate | date:'YYYY-MM-DD'" (blur)=" onCreationDateChange()"
-      name="creationDate ">
+    <input matInput type="date" placeholder="Date:" [(ngModel)]="creationDate" name="creationDate ">
   </mat-form-field>
 
   <mat-form-field>

@@ -17,7 +17,7 @@ export class StatusDirective implements OnInit {
     this.creationDate = moment(this.appStatus);
     this.duration = moment.duration(this.creationDate.diff(this.before14Days)).as('days');
     if (this.creationDate > this.today) {
-      this.el.nativeElement.style.border = '2px solid blue';
+      this.el.nativeElement.style.border = '2px dotted blue';
     } else if (this.duration < 14 && this.duration > 0) {
       this.el.nativeElement.style.border = '2px solid green';
     }
