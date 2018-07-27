@@ -4,7 +4,7 @@ import { APP_BASE_HREF } from '../../../node_modules/@angular/common';
 import { RouterModule } from '../../../node_modules/@angular/router';
 import { LoginComponent } from './login.component';
 
-describe('LoginComponent', () => {
+xdescribe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
