@@ -15,6 +15,7 @@ describe('CourseComponent', () => {
   let fixture: ComponentFixture<CourseComponent>;
   let getByIdSpy;
   let coursesService;
+  let de;
 
   beforeEach(async(() => {
     coursesService = jasmine.createSpyObj('CoursesService', ['getById', 'onCreate', 'onUpdate']);
@@ -34,6 +35,7 @@ describe('CourseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CourseComponent);
     component = fixture.componentInstance;
+    de = fixture.debugElement;
     fixture.detectChanges();
   });
 
@@ -47,9 +49,33 @@ describe('CourseComponent', () => {
     expect(component.course.creationDate).toBe('2018-01-01');
   });
 
-  it('should ', () => {
-    const hostElement = fixture.nativeElement;
-    const durationDisplay: HTMLInputElement = hostElement.querySelector('input[name="title"]');
-    expect(durationDisplay.value).toBe('2 hours');
+  it('title input should have value', () => {
+    fixture.whenStable().then(() => {
+      const hostElement = fixture.nativeElement;
+      const inputEl: HTMLInputElement = hostElement.querySelector('input[name="title"]');
+      const inputElByCSS: HTMLInputElement = de.query(By.css('input[name="title"]')).nativeElement;
+      expect(inputEl.value).toBe('test');
+      expect(inputElByCSS.value).toBe('test');
+
+      inputEl.value = 'test 2';
+      inputEl.dispatchEvent(new Event('input'));
+
+      expect(component.course.title).toBe('test 2');
+    });
+  });
+
+  it('title input should have value', () => {
+    fixture.whenStable().then(() => {
+      const hostElement = fixture.nativeElement;
+      const inputEl: HTMLInputElement = hostElement.querySelector('input[name="creationDate"]');
+      const inputElByCSS: HTMLInputElement = de.query(By.css('input[name="creationDate"]')).nativeElement;
+      expect(inputEl.value).toBe('2018-01-01');
+      expect(inputElByCSS.value).toBe('2018-01-01');
+
+      inputEl.value = '2019-01-01';
+      inputEl.dispatchEvent(new Event('input'));
+
+      expect(component.course.creationDate).toBe(1546300800000);
+    });
   });
 });
