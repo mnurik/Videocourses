@@ -55,7 +55,7 @@ describe('HeaderComponent', () => {
     // TODO: Fix these tests
     // const hostElement = fixture.nativeElement;
     // const button: HTMLInputElement = hostElement.querySelector('button');
-    // button.dispatchEvent(new Event('click'));
+    // button.;
     // expect(LoginServiceStub.logout.calls.count()).toBe(4);
   });
 });

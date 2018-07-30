@@ -6,25 +6,24 @@ import { UserInterface } from '../core/user-interface';
   providedIn: 'root',
 })
 export class LoginService {
-  private user: UserInterface = new UserClass(0, 'Admin', 'Admin', 'admin', '123');
+  public user: UserInterface = new UserClass(0, 'Admin', 'Admin', 'admin', '123');
 
   constructor() { }
 
   public login(username: string, password: string): void {
     if (username === this.user.username && password === this.user.password) {
-      window.localStorage.setItem('user', JSON.stringify(this.user));
-      window.localStorage.setItem('token', `admin-${Date.now()}`);
+      localStorage.setItem('user', JSON.stringify(this.user));
+      localStorage.setItem('token', `admin-${Date.now()}`);
     }
   }
   public logout(): void {
-    window.localStorage.removeItem('user');
-    window.localStorage.removeItem('token');
+    localStorage.clear();
   }
   public isAuthenticated(): boolean {
-    return window.localStorage.getItem('token') !== null;
+    return localStorage.getItem('token') !== null;
   }
 
   public getUserInfo(): UserInterface {
-    return JSON.parse(window.localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem('user'));
   }
 }
