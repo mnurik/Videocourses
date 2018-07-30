@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { CoursesService } from '../home/courses.service';
 import { LoginComponent } from '../login/login.component';
+import { CourseInterface } from '../shared/course-interface';
 import { CourseComponent } from './course.component';
 
 describe('CourseComponent', () => {
@@ -16,10 +17,14 @@ describe('CourseComponent', () => {
   let getByIdSpy;
   let coursesService;
   let de;
+  const fakeCourse: Partial<CourseInterface> = {
+    title: 'test',
+    creationDate: 1514764800000,
+  };
 
   beforeEach(async(() => {
     coursesService = jasmine.createSpyObj('CoursesService', ['getById', 'onCreate', 'onUpdate']);
-    getByIdSpy = coursesService.getById.and.returnValue({ title: 'test', creationDate: '2018-01-01' });
+    getByIdSpy = coursesService.getById.and.returnValue(fakeCourse);
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{ path: 'login', component: LoginComponent }]), FormsModule],
       declarations: [CourseComponent, LoginComponent],
@@ -46,7 +51,7 @@ describe('CourseComponent', () => {
   it('should call service method getById inside ngOnInit', () => {
     expect(getByIdSpy.calls.count()).toBe(1);
     expect(component.course.title).toBe('test');
-    expect(component.course.creationDate).toBe('2018-01-01');
+    expect(component.course.creationDate).toBe(1514764800000);
   });
 
   it('title input should have value', () => {
@@ -77,5 +82,16 @@ describe('CourseComponent', () => {
 
       expect(component.course.creationDate).toBe(1546300800000);
     });
+  });
+
+  it('should call create service if id not exist, otherwise update', () => {
+    const hostElement = fixture.nativeElement;
+    const submitButton: HTMLInputElement = hostElement.querySelector('button[type="submit"]');
+    submitButton.dispatchEvent(new Event('click'));
+    expect(coursesService.onCreate.calls.count()).toBe(1);
+
+    component.course.id = 1;
+    submitButton.dispatchEvent(new Event('click'));
+    expect(coursesService.onUpdate.calls.count()).toBe(1);
   });
 });

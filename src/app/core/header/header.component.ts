@@ -11,12 +11,12 @@ import { UserClass } from '../user-class';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  user$ = new BehaviorSubject<UserClass>(null);
+  public user$ = new BehaviorSubject<UserClass>(null);
 
   private routerSubscription: Subscription;
 
-  constructor(private loginService: LoginService, private router: Router) {
-  }
+  constructor(private loginService: LoginService, private router: Router) { }
+
   ngOnInit() {
     if (!this.loginService.isAuthenticated()) {
       this.logout();
