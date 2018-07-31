@@ -3,8 +3,11 @@
     <img src="assets/video.png" alt="Logo" width="50">
     <h2>VC</h2>
   </div>
-  <div class="account-container" *ngIf="(user$ | async) as user">
+  <div class="account-container" *ngIf="user$ | async as user; else LoginButton">
     <span>{{user.firstName}} {{user.lastName}}</span>
     <button mat-stroked-button (click)="onLogOut()">Log off</button>
   </div>
+  <ng-template #LoginButton>
+    <button mat-stroked-button routerLink="../login">Log in</button>
+  </ng-template>
 </header>
