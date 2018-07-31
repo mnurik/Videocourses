@@ -18,10 +18,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
-    if (!this.loginService.isAuthenticated()) {
-      this.logout();
-    }
-
     this.routerSubscription = this.router.events
       .subscribe(() => this.user$.next(this.loginService.getUserInfo()));
   }
