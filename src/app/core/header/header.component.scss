@@ -6,15 +6,16 @@ header {
   height: 50px;
   background: #eee;
   align-items: center;
+  padding: 0 10px;
 
-  > * {
+  > div {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
   }
 
   > .logo-container {
-    width: 170px;
+    width: 300px;
 
     h2 {
       margin: 0;

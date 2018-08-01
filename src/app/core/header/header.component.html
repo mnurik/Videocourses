@@ -1,7 +1,7 @@
 <header class="flex-sb">
   <div class="logo-container">
     <img src="assets/video.png" alt="Logo" width="50">
-    <h2>VC</h2>
+    <h2>VideoCourses</h2>
   </div>
   <div class="account-container" *ngIf="user$ | async as user; else LoginButton">
     <span>{{user.firstName}} {{user.lastName}}</span>

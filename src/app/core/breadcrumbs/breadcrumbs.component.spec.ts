@@ -2,23 +2,30 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { CoursesService } from '../../home/courses.service';
+import { CourseInterface } from '../../shared/course-interface';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 
 describe('BreadcrumbsComponent', () => {
   let component: BreadcrumbsComponent;
   let fixture: ComponentFixture<BreadcrumbsComponent>;
-  const MockActivatedRoute = { snapshot: { params: {} } };
-  let ActivatedRouteService;
+  let coursesService;
+  let getByIdSpy;
+  const fakeCourse: Partial<CourseInterface> = {
+    title: 'test',
+  };
 
   beforeEach(async(() => {
+    coursesService = jasmine.createSpyObj('CoursesService', ['getById']);
+    getByIdSpy = coursesService.getById.and.returnValue(fakeCourse);
     TestBed.configureTestingModule({
       imports: [RouterModule.forRoot([])],
       declarations: [BreadcrumbsComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
-        { provide: ActivatedRoute, useValue: MockActivatedRoute },
+        { provide: CoursesService, useValue: coursesService },
       ],
     }).compileComponents();
   }));
@@ -35,17 +42,8 @@ describe('BreadcrumbsComponent', () => {
 
   it('should initialize list of links', () => {
     expect(component.links).toEqual([{
-      name: 'List of Courses',
+      name: 'Courses',
       to: '/',
-    }]);
-    ActivatedRouteService = TestBed.get(ActivatedRoute);
-    ActivatedRouteService.snapshot.params.id = 1;
-    fixture.detectChanges();
-    expect(component.links).toEqual([{
-      name: 'List of Courses',
-      to: '/',
-    }, {
-      name: 'Course Details',
-    }]);
+    }, { name: 'test' }]);
   });
 });

@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CoursesService } from '../../home/courses.service';
 import { LinkInterface } from './link-interface';
 
@@ -9,8 +10,9 @@ import { LinkInterface } from './link-interface';
   styleUrls: ['./breadcrumbs.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BreadcrumbsComponent implements OnInit {
+export class BreadcrumbsComponent implements OnInit, OnDestroy {
   public links: LinkInterface[];
+  private routerSubscription: Subscription;
 
   constructor(private route: ActivatedRoute, private coursesService: CoursesService) { }
 
@@ -22,9 +24,15 @@ export class BreadcrumbsComponent implements OnInit {
       },
     ];
 
-    this.route.paramMap.subscribe((params: ParamMap) => {
+    this.routerSubscription = this.route.paramMap.subscribe((params: ParamMap) => {
       const currentCourse = this.coursesService.getById(params.get('id'));
-      this.links = [...this.links, { name: currentCourse.title }];
+      if (currentCourse) {
+        this.links = [...this.links, { name: currentCourse.title }];
+      }
     });
+  }
+
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe();
   }
 }
