@@ -1,30 +1,30 @@
-import { ChangeDetectionStrategy, Component, DoCheck, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { CoursesService } from '../../home/courses.service';
 import { LinkInterface } from './link-interface';
 
 @Component({
   selector: 'app-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BreadcrumbsComponent implements OnInit, DoCheck {
+export class BreadcrumbsComponent implements OnInit {
   public links: LinkInterface[];
 
-  constructor(private route: ActivatedRoute) { }
-
-  ngDoCheck() {
-    if (this.route.snapshot.params.id) {
-      this.links = [...this.links, { name: 'Course Details' }];
-    }
-  }
+  constructor(private route: ActivatedRoute, private coursesService: CoursesService) { }
 
   ngOnInit() {
     this.links = [
       {
-        name: 'List of Courses',
+        name: 'Courses',
         to: '/',
       },
     ];
+
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      const currentCourse = this.coursesService.getById(params.get('id'));
+      this.links = [...this.links, { name: currentCourse.title }];
+    });
   }
 }
