@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CourseClass } from '../../shared/course-class';
+import { CourseInterface } from '../../shared/course-interface';
 import { mockCourses } from '../../shared/mock-data';
 import { CoursesService } from '../courses.service';
 import { CourseListComponent } from './course-list.component';
@@ -77,18 +78,10 @@ describe('CourseListComponent', () => {
     expect(component.ngDoCheckChecker).toBeTruthy();
   });
 
-  xit('should call ngDoCheck lifecycle hook', () => {
-    expectedCourses = [
-      ...expectedCourses,
-      new CourseClass(125, 'test title', 'test desc. 3', new Date('01/01/2019').getTime(), 180, 'Test Authors')
-    ];
-    fixture.detectChanges();
-    expect(fixture.nativeElement.querySelectorAll('app-course-item').length).toEqual(3);
-  });
-
-  xit('should show no data message', () => {
-    component.onDelete(123);
-    component.onDelete(124);
+  it('should show no data message', () => {
+    mockCourses.forEach((course: CourseInterface) => {
+      component.onDelete(course.id);
+    });
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelectorAll('app-course-item').length).toEqual(0);
     expect(fixture.nativeElement.querySelector('h4').textContent).toEqual('NO DATA, FEEL FREE TO ADD NEW COURSE');

@@ -13,7 +13,7 @@ export class LoginComponent {
   constructor(private loginService: LoginService, private router: Router) { }
 
   public onSubmit(username, password) {
-    this.loginService.login(username.value, password.value);
+    this.loginService.login(username, password);
     this.router.navigate(['/']);
   }
 

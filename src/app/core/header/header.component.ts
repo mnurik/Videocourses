@@ -11,7 +11,7 @@ import { UserClass } from '../user-class';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  public user$ = new BehaviorSubject<UserClass>(null);
+  public user$ = new BehaviorSubject<UserClass>(this.loginService.getUserInfo());
 
   private routerSubscription: Subscription;
 

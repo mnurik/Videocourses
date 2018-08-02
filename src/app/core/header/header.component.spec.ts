@@ -46,12 +46,13 @@ describe('HeaderComponent', () => {
 
   it('should call logout service for onLogout method', () => {
     component.onLogOut();
-    expect(LoginServiceStub.logout.calls.count()).toBe(1);
+    expect(LoginServiceStub.logout).toHaveBeenCalledTimes(1);
+  });
 
-    // TODO: Fix these tests
-    // const hostElement = fixture.nativeElement;
-    // const button: HTMLInputElement = hostElement.querySelector('button');
-    // button.;
-    // expect(LoginServiceStub.logout.calls.count()).toBe(4);
+  it('should call logout service for log off button click', () => {
+    const hostElement = fixture.nativeElement;
+    const button: HTMLButtonElement = hostElement.querySelector('.account-container button');
+    button.click();
+    expect(LoginServiceStub.logout).toHaveBeenCalledTimes(1);
   });
 });

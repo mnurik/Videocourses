@@ -1,15 +1,28 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { async, inject, TestBed } from '@angular/core/testing';
 
 import { AuthGuard } from './auth.guard';
+import { LoginService } from './login/login.service';
 
 describe('AuthGuard', () => {
+  let instance;
+  let LoginServiceStub;
+
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [AuthGuard]
-    });
+    LoginServiceStub = jasmine.createSpyObj('LoginService', ['isAuthenticated']);
+    LoginServiceStub.isAuthenticated.and.returnValue(true);
+    instance = new AuthGuard(LoginServiceStub);
   });
 
-  it('should ...', inject([AuthGuard], (guard: AuthGuard) => {
+  it('should work', inject([AuthGuard], (guard: AuthGuard) => {
     expect(guard).toBeTruthy();
   }));
+
+  it('should call service method for canLoad', () => {
+    instance.canLoad();
+    expect(LoginServiceStub.isAuthenticated).toHaveBeenCalled();
+  });
+
+  it('should call service method for canLoad', () => {
+    expect(instance.canLoad()).toBeTruthy();
+  });
 });

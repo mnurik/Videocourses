@@ -7,9 +7,9 @@ import { LoginService } from './login/login.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanLoad {
-  constructor(private loginSerice: LoginService) { }
+  constructor(private loginService: LoginService) { }
 
   canLoad(): Observable<boolean> | Promise<boolean> | boolean {
-    return this.loginSerice.isAuthenticated();
+    return this.loginService.isAuthenticated();
   }
 }
