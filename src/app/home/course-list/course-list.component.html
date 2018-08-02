@@ -2,11 +2,11 @@
 
 <app-toolbox (searchCourse)="onSearch($event)"></app-toolbox>
 
-<mat-list *ngIf="courses$ | async as courses; else showMessage">
+<mat-list *ngIf="courses.length">
   <app-course-item *ngFor="let course of courses" [course]="course" (delete)="onDelete(course.id)" (like)="onLike(course.id)"></app-course-item>
   <button mat-stroked-button class="load__more" (click)="loadMore()">Load More</button>
 </mat-list>
 
-<div #showMessage class="content-centered">
+<div *ngIf="!courses.length" class="content-centered">
   <h4 class="minor-text">{{"no data, feel free to add new course" | uppercase}}</h4>
 </div>
