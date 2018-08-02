@@ -1,0 +1,14 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "title": "Angular Component",
+      "description": "Angular components are awesome",
+      "creationDate": 1514761200000,
+      "duration": 50,
+      "authors": "Mike, John",
+      "liked": true,
+      "topRated": true
+    }
+  ]
+}

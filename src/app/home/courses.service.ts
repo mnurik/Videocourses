@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { CourseClass } from '../shared/course-class';
 import { CourseInterface } from '../shared/course-interface';
-import { mockCourses } from '../shared/mock-data';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class CoursesService {
-  public courses: CourseInterface[] = [...mockCourses];
+  private BASE_URL = "http://localhost:3000";
+  public courses: CourseInterface[] = [];
 
-  public getList(): CourseInterface[] {
-    return this.courses;
+  constructor(private http: HttpClient) { }
+
+  public getList(): Observable<CourseInterface[]> {
+    return this.http.get<CourseInterface[]>(`${this.BASE_URL}/courses`);
   }
 
   public onCreate({ title, description, duration, authors, creationDate }): CourseInterface[] {

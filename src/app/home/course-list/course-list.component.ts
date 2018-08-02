@@ -30,7 +30,9 @@ export class CourseListComponent implements
   constructor(private coursesService: CoursesService, private filterCourses: FilterPipe) { }
 
   public ngOnInit() {
-    this.courses = this.coursesService.getList();
+    this.coursesService.getList().subscribe((courses: CourseInterface[]) => {
+      this.courses = courses;
+    });
   }
 
   public ngDoCheck() {
