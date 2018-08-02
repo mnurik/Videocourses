@@ -14,6 +14,7 @@ import {
 import { CourseInterface } from '../../shared/course-interface';
 import { CoursesService } from '../courses.service';
 import { FilterPipe } from '../filter.pipe';
+import { Observable } from '../../../../node_modules/rxjs';
 
 @Component({
   selector: 'app-course-list',
@@ -25,12 +26,12 @@ import { FilterPipe } from '../filter.pipe';
 export class CourseListComponent implements
   OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
   @Output() public deleteCourse = new EventEmitter();
-  public courses: CourseInterface[] = [];
+  public courses$: Observable<CourseInterface[]>;
   public ngDoCheckChecker = false;
   constructor(private coursesService: CoursesService, private filterCourses: FilterPipe) { }
 
   public ngOnInit() {
-    this.courses = this.coursesService.getList();
+    this.courses$ = this.coursesService.getList();
   }
 
   public ngDoCheck() {
@@ -51,16 +52,16 @@ export class CourseListComponent implements
   }
 
   public onDelete(id: number) {
-    this.courses = this.coursesService.onDelete(id);
+    this.courses$ = this.coursesService.onDelete(id);
   }
 
   public onLike(id: number) {
-    this.courses = this.coursesService.onLike(id);
+    this.courses$ = this.coursesService.onLike(id);
   }
 
   public onSearch(value: string) {
     // this.courses = this.coursesService.onSearch(value);
-    this.courses = this.filterCourses.transform(this.coursesService.getList(), value);
+    this.courses$ = this.filterCourses.transform(this.coursesService.getList(), value);
   }
 
   public loadMore() {
