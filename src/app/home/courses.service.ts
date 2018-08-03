@@ -1,41 +1,31 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { UserInterface } from '../core/user-interface';
 import { CourseClass } from '../shared/course-class';
 import { CourseInterface } from '../shared/course-interface';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class CoursesService {
-  private BASE_URL = "http://localhost:3000";
+  private BASE_URL = 'http://localhost:3000';
   public courses: CourseInterface[] = [];
 
   constructor(private http: HttpClient) { }
 
-  public getList(): Observable<CourseInterface[]> {
-    return this.http.get<CourseInterface[]>(`${this.BASE_URL}/courses`);
+  public getList(_page: string, _limit: string): Observable<CourseInterface[]> {
+    return this.http.get<CourseInterface[]>(`${this.BASE_URL}/courses`, { params: { _page, _limit } });
   }
 
-  public onCreate({ title, description, duration, authors, creationDate }): CourseInterface[] {
-    this.courses = this.courses.concat([
-      new CourseClass(Date.now(), title, description, creationDate, duration, authors),
-    ]);
-    return this.courses;
+  public onCreate(data): Observable<any> {
+    return this.http.post<UserInterface>(`${this.BASE_URL}/courses`, data);
   }
 
-  public onUpdate(data: CourseInterface): CourseInterface[] {
-    this.courses = this.courses.map((course: CourseInterface) => {
-      if (course.id === data.id) {
-        return Object.assign({}, course, data);
-      } else { return course; }
-    });
-    return this.courses;
+  public onUpdate({ id, ...rest }: CourseInterface): Observable<any> {
+    return this.http.put<UserInterface>(`${this.BASE_URL}/courses/${id}`, rest);
   }
 
-  public onDelete(id: number): CourseInterface[] {
-    this.courses = this.courses.filter(
-      (course: CourseInterface) => course.id !== id,
-    );
-    return this.courses;
+  public onDelete(id: number): Observable<CourseInterface> {
+    return this.http.delete<CourseInterface>(`${this.BASE_URL}/courses/${id}`);
   }
 
   public onSearch(value: string): CourseInterface[] {
@@ -45,17 +35,11 @@ export class CoursesService {
     });
   }
 
-  public getById(id: string): CourseInterface {
-    if (/[0-9]/g.test(id)) {
-      return { ...this.courses.find((course: CourseInterface) => course.id === +id) };
-    }
+  public getById(id: string): Observable<CourseInterface> {
+    return this.http.get<CourseInterface>(`${this.BASE_URL}/courses/${id}`);
   }
 
-  public onLike(id: number): CourseInterface[] {
-    this.courses = this.courses.map((course) => ({
-      ...course,
-      liked: course.id === id,
-    }));
-    return this.courses;
+  public onLike(id: number): Observable<CourseInterface> {
+    return this.http.put<CourseInterface>(`${this.BASE_URL}/courses/${id}`, {});
   }
 }

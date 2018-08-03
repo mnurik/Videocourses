@@ -9,6 +9,26 @@
       "authors": "Mike, John",
       "liked": true,
       "topRated": true
+    },
+    {
+      "id": 2,
+      "title": "React Component",
+      "description": "React components are awesome",
+      "creationDate": 1514761200000,
+      "duration": 50,
+      "authors": "Mike, John",
+      "liked": true,
+      "topRated": true
+    },
+    {
+      "id": 4,
+      "title": "New course",
+      "description": "asdasdadda",
+      "authors": "John Doe",
+      "creationDate": 1535760000000,
+      "duration": "90",
+      "liked": false,
+      "topRated": false
     }
   ]
 }

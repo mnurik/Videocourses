@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,7 +7,6 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { CourseModule } from './course/course.module';
 import { NotFoundComponent } from './not-found/not-found/not-found.component';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],

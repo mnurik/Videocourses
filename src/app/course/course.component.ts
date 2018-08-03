@@ -8,7 +8,7 @@ import { CourseInterface } from '../shared/course-interface';
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseComponent implements OnInit {
   public course: CourseInterface = {
@@ -25,7 +25,11 @@ export class CourseComponent implements OnInit {
   constructor(private coursesService: CoursesService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.course = Object.assign({}, this.course, this.coursesService.getById(this.route.snapshot.paramMap.get('id')));
+    if (this.course.id !== null) {
+      this.coursesService.getById(this.route.snapshot.paramMap.get('id')).subscribe((course: CourseInterface) => {
+        this.course = Object.assign({}, this.course, course);
+      });
+    }
   }
 
   public get creationDate() {
@@ -38,11 +42,10 @@ export class CourseComponent implements OnInit {
 
   update() {
     if (this.course.id === null) {
-      this.coursesService.onCreate(this.course);
+      this.coursesService.onCreate(this.course).subscribe(() => this.router.navigate(['/']));
     } else {
-      this.coursesService.onUpdate(this.course);
+      this.coursesService.onUpdate(this.course).subscribe(() => this.router.navigate(['/']));
     }
-    this.router.navigate(['/']);
   }
 
 }
