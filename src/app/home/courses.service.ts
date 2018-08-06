@@ -7,39 +7,36 @@ import { CourseInterface } from '../shared/course-interface';
 
 @Injectable()
 export class CoursesService {
-  private BASE_URL = 'http://localhost:3000';
+  private BASE_URL = 'http://localhost:3004/courses';
   public courses: CourseInterface[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getList(_page: string, _limit: string): Observable<CourseInterface[]> {
-    return this.http.get<CourseInterface[]>(`${this.BASE_URL}/courses`, { params: { _page, _limit } });
+    return this.http.get<CourseInterface[]>(`${this.BASE_URL}`, { params: { _page, _limit } });
   }
 
   public onCreate(data): Observable<any> {
-    return this.http.post<UserInterface>(`${this.BASE_URL}/courses`, data);
+    return this.http.post<UserInterface>(`${this.BASE_URL}`, data);
   }
 
   public onUpdate({ id, ...rest }: CourseInterface): Observable<any> {
-    return this.http.put<UserInterface>(`${this.BASE_URL}/courses/${id}`, rest);
+    return this.http.put<UserInterface>(`${this.BASE_URL}/${id}`, rest);
   }
 
   public onDelete(id: number): Observable<CourseInterface> {
-    return this.http.delete<CourseInterface>(`${this.BASE_URL}/courses/${id}`);
+    return this.http.delete<CourseInterface>(`${this.BASE_URL}/${id}`);
   }
 
-  public onSearch(value: string): CourseInterface[] {
-    return this.courses.filter((course: CourseInterface) => {
-      const re = new RegExp(value, 'i');
-      return (`${course.description} ${course.title} ${course.creationDate}`).match(re);
-    });
+  public onSearch(value: string): Observable<CourseInterface[]> {
+    return this.http.get<CourseInterface[]>(`${this.BASE_URL}`, { params: { name: value } });
   }
 
   public getById(id: string): Observable<CourseInterface> {
-    return this.http.get<CourseInterface>(`${this.BASE_URL}/courses/${id}`);
+    return this.http.get<CourseInterface>(`${this.BASE_URL}/${id}`);
   }
 
   public onLike(id: number): Observable<CourseInterface> {
-    return this.http.put<CourseInterface>(`${this.BASE_URL}/courses/${id}`, {});
+    return this.http.put<CourseInterface>(`${this.BASE_URL}/${id}`, {});
   }
 }

@@ -5,11 +5,11 @@ export class CourseClass implements CourseInterface {
 
   constructor(
     public id: number,
-    public title: string,
+    public name: string,
     public description: string,
     public creationDate: number,
     public duration: number,
     public authors: string,
-    public topRated: boolean = false,
-  ) { }
+    public isTopRated: boolean = false,
+  ) {}
 }

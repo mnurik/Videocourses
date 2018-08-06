@@ -1,16 +1,4 @@
-import {
-  AfterContentChecked,
-  AfterContentInit,
-  AfterViewChecked,
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  DoCheck,
-  EventEmitter,
-  OnChanges,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CourseInterface } from '../../shared/course-interface';
 import { CoursesService } from '../courses.service';
 import { FilterPipe } from '../filter.pipe';
@@ -22,14 +10,13 @@ import { FilterPipe } from '../filter.pipe';
   providers: [FilterPipe],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseListComponent implements
-  OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
+export class CourseListComponent implements OnInit {
   @Output() public deleteCourse = new EventEmitter();
   public courses: CourseInterface[] = [];
   private limit = 2;
   private page = 1;
   public isLoadMore = false;
-  constructor(private coursesService: CoursesService, private filterCourses: FilterPipe) { }
+  constructor(private coursesService: CoursesService, private filterCourses: FilterPipe) {}
 
   public ngOnInit() {
     this.loadCourses();
@@ -42,22 +29,6 @@ export class CourseListComponent implements
     });
   }
 
-  public ngDoCheck() {
-    console.log('%c>>ngDoCheck<<' + ' %clifecycle runs in CourseListComponent', 'color:red', 'color:black');
-  }
-  public ngAfterContentInit() {
-    console.log('%c>>ngAfterContentInit<<' + ' %clifecycle runs in CourseListComponent', 'color:red', 'color:black');
-  }
-  public ngAfterContentChecked() {
-    console.log('%c>>ngAfterContentChecked<<' + ' %clifecycle runs in CourseListComponent', 'color:red', 'color:black');
-  }
-  public ngAfterViewInit() {
-    console.log('%c>>ngAfterViewInit<<' + ' %clifecycle runs in CourseListComponent', 'color:red', 'color:black');
-  }
-  public ngAfterViewChecked() {
-    console.log('%c>>ngAfterViewChecked<<' + ' %clifecycle runs in CourseListComponent', 'color:red', 'color:black');
-  }
-
   public onDelete(id: number) {
     this.coursesService.onDelete(id).subscribe(() => this.loadCourses());
   }
@@ -67,8 +38,9 @@ export class CourseListComponent implements
   }
 
   public onSearch(value: string) {
-    // this.courses = this.coursesService.onSearch(value);
-    // this.courses = this.filterCourses.transform(this.coursesService.getList(), value);
+    this.coursesService.onSearch(value).subscribe((courses: CourseInterface[]) => {
+      this.courses = courses;
+    });
   }
 
   public loadMore() {

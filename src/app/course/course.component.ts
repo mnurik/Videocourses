@@ -13,16 +13,16 @@ import { CourseInterface } from '../shared/course-interface';
 export class CourseComponent implements OnInit {
   public course: CourseInterface = {
     id: null,
-    title: '',
+    name: '',
     description: '',
     authors: '',
     creationDate: new Date().getTime(),
     duration: 0,
     liked: false,
-    topRated: false,
+    isTopRated: false,
   };
 
-  constructor(private coursesService: CoursesService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private coursesService: CoursesService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -48,5 +48,4 @@ export class CourseComponent implements OnInit {
       this.coursesService.onUpdate(this.course).subscribe(() => this.router.navigate(['/']));
     }
   }
-
 }

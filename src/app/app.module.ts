@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { CourseModule } from './course/course.module';
+import { httpInterceptorProviders } from './http-interceptors';
 import { NotFoundComponent } from './not-found/not-found/not-found.component';
 
 @NgModule({
@@ -18,7 +19,7 @@ import { NotFoundComponent } from './not-found/not-found/not-found.component';
     CourseModule.forRoot(),
     HttpClientModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

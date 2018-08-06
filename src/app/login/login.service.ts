@@ -1,20 +1,18 @@
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserClass } from '../core/user-class';
+import { Observable } from '../../../node_modules/rxjs';
 import { UserInterface } from '../core/user-interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  public user: UserInterface = new UserClass(0, 'Admin', 'Admin', 'admin', '123');
+  private BASE_URL = 'http://localhost:3004/auth';
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
-  public login(username: string, password: string): void {
-    if (username === this.user.username && password === this.user.password) {
-      localStorage.setItem('user', JSON.stringify(this.user));
-      localStorage.setItem('token', `admin-${Date.now()}`);
-    }
+  public login(login: string, password: string): Observable<UserInterface> {
+    return this.http.post<UserInterface>(`${this.BASE_URL}/login`, { login, password });
   }
   public logout(): void {
     localStorage.clear();
@@ -23,7 +21,7 @@ export class LoginService {
     return localStorage.getItem('token') !== null;
   }
 
-  public getUserInfo(): UserInterface {
-    return JSON.parse(localStorage.getItem('user'));
+  public getUserInfo(): Observable<UserInterface> {
+    return this.http.get<UserInterface>(`${this.BASE_URL}/userInfo`);
   }
 }

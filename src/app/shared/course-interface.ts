@@ -1,10 +1,10 @@
 export interface CourseInterface {
   id: number;
-  title: string;
+  name: string;
   creationDate: number;
   duration: number;
   description: string;
-  topRated: boolean;
+  isTopRated: boolean;
   liked: boolean;
   authors: string;
 }

@@ -6,15 +6,15 @@ import { LoginService } from './login.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
-
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router) {}
 
   public onSubmit(username, password) {
-    this.loginService.login(username, password);
-    this.router.navigate(['/']);
+    this.loginService.login(username, password).subscribe(({ token }) => {
+      localStorage.setItem('token', token);
+      this.router.navigate(['/']);
+    });
   }
-
 }

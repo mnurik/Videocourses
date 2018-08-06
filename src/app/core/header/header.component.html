@@ -4,7 +4,7 @@
     <h2>VideoCourses</h2>
   </div>
   <div class="account-container" *ngIf="user$ | async as user; else LoginButton">
-    <span>{{user.firstName}} {{user.lastName}}</span>
+    <span>{{user.first}} {{user.last}}</span>
     <button mat-stroked-button (click)="onLogOut()">Log off</button>
   </div>
   <ng-template #LoginButton>
