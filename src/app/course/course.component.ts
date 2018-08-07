@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { CoursesService } from '../home/courses.service';
@@ -10,7 +10,7 @@ import { CourseInterface } from '../shared/course-interface';
   styleUrls: ['./course.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseComponent implements OnInit {
+export class CourseComponent implements OnInit, OnChanges {
   public course: CourseInterface = {
     id: null,
     name: '',
@@ -22,7 +22,7 @@ export class CourseComponent implements OnInit {
     isTopRated: false,
   };
 
-  constructor(private coursesService: CoursesService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private coursesService: CoursesService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');

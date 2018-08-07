@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { LinkInterface } from './link-interface';
 
 @Component({
@@ -14,15 +14,11 @@ export class BreadcrumbsComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges() {
-    this.links = [...this.links, ...this.addLinks];
+    this.links = [{
+      name: 'Courses',
+      to: '/',
+    }, ...this.addLinks];
   }
 
-  ngOnInit() {
-    this.links = [
-      {
-        name: 'Courses',
-        to: '/',
-      },
-    ];
-  }
+  ngOnInit() { }
 }

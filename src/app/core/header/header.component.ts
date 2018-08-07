@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { LoginService } from '../../login/login.service';
 import { UserInterface } from '../user-interface';
@@ -19,11 +19,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
-    this.routerSubscription = this.router.events.subscribe(() => this.loadData());
+    this.routerSubscription = this.router.events.subscribe((event: RouterEvent) => {
+      if (event instanceof NavigationEnd) {
+        this.loadData();
+      }
+    });
   }
 
   loadData() {
-    this.getUserInfoSubscription = this.loginService.getUserInfo().subscribe((user: UserInterface) => this.user$.next(user.name));
+    if (this.loginService.isAuthenticated()) {
+      this.getUserInfoSubscription = this.loginService.getUserInfo()
+        .subscribe((user: UserInterface) => this.user$.next(user.name));
+    }
   }
 
   public onLogOut(): void {

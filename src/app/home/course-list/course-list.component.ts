@@ -36,7 +36,11 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   public onDelete(id: number) {
-    this.getListSubscription = this.coursesService.onDelete(id).subscribe(() => this.loadCourses());
+    this.getListSubscription = this.coursesService.onDelete(id).subscribe(() => {
+      this.page = 0;
+      this.courses = [];
+      this.loadCourses();
+    });
   }
 
   public onLike(id: number) {
@@ -55,8 +59,14 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.onDeleteSubscription) { this.onDeleteSubscription.unsubscribe(); }
-    if (this.getListSubscription) { this.getListSubscription.unsubscribe(); }
-    if (this.onSearchSubscription) { this.onSearchSubscription.unsubscribe(); }
+    if (this.onDeleteSubscription) {
+      this.onDeleteSubscription.unsubscribe();
+    }
+    if (this.getListSubscription) {
+      this.getListSubscription.unsubscribe();
+    }
+    if (this.onSearchSubscription) {
+      this.onSearchSubscription.unsubscribe();
+    }
   }
 }
