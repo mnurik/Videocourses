@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges } from '@angular/core';
 import { LinkInterface } from './link-interface';
 
 @Component({
@@ -7,11 +7,15 @@ import { LinkInterface } from './link-interface';
   styleUrls: ['./breadcrumbs.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BreadcrumbsComponent implements OnInit {
+export class BreadcrumbsComponent implements OnInit, OnChanges {
   @Input() addLinks: LinkInterface[];
   public links: LinkInterface[];
 
-  constructor() {}
+  constructor() { }
+
+  ngOnChanges() {
+    this.links = [...this.links, ...this.addLinks];
+  }
 
   ngOnInit() {
     this.links = [

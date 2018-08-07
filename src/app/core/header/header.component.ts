@@ -8,21 +8,22 @@ import { UserInterface } from '../user-interface';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   public user$ = new BehaviorSubject<{ first: string; last: string }>(null);
 
   private routerSubscription: Subscription;
+  private getUserInfoSubscription: Subscription;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
     this.routerSubscription = this.router.events.subscribe(() => this.loadData());
   }
 
   loadData() {
-    this.loginService.getUserInfo().subscribe((user: UserInterface) => this.user$.next(user.name));
+    this.getUserInfoSubscription = this.loginService.getUserInfo().subscribe((user: UserInterface) => this.user$.next(user.name));
   }
 
   public onLogOut(): void {
@@ -36,5 +37,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this.routerSubscription.unsubscribe();
+    this.getUserInfoSubscription.unsubscribe();
   }
 }
