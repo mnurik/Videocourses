@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subscription } from '../../../../node_modules/rxjs';
 import { CourseInterface } from '../../shared/course-interface';
 import { CoursesService } from '../courses.service';
 import { FilterPipe } from '../filter.pipe';
-import { Subscription } from '../../../../node_modules/rxjs';
 
 @Component({
   selector: 'app-course-list',
@@ -55,8 +55,8 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.onDeleteSubscription.unsubscribe();
-    this.getListSubscription.unsubscribe();
-    this.onSearchSubscription.unsubscribe();
+    if (this.onDeleteSubscription) { this.onDeleteSubscription.unsubscribe(); }
+    if (this.getListSubscription) { this.getListSubscription.unsubscribe(); }
+    if (this.onSearchSubscription) { this.onSearchSubscription.unsubscribe(); }
   }
 }
