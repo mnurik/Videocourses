@@ -1,4 +1,4 @@
-import { CourseInterface } from './course-interface';
+import { AuthorsInterface, CourseInterface } from './course-interface';
 
 export class CourseClass implements CourseInterface {
   public liked: boolean;
@@ -9,7 +9,7 @@ export class CourseClass implements CourseInterface {
     public description: string,
     public creationDate: number,
     public duration: number,
-    public authors: string,
+    public authors: AuthorsInterface[],
     public isTopRated: boolean = false,
-  ) {}
+  ) { }
 }

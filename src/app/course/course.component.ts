@@ -15,7 +15,7 @@ export class CourseComponent implements OnInit {
     id: null,
     name: '',
     description: '',
-    authors: '',
+    authors: [],
     creationDate: new Date().getTime(),
     duration: 0,
     liked: false,
@@ -33,7 +33,7 @@ export class CourseComponent implements OnInit {
     }
   }
 
-  public get creationDate() {
+  public get creationDate(): string {
     return moment(this.course.creationDate).format('YYYY-MM-DD');
   }
 
@@ -41,7 +41,23 @@ export class CourseComponent implements OnInit {
     this.course.creationDate = new Date(value).getTime();
   }
 
-  update() {
+  public get authors(): string {
+    return this.course.authors.map((author) => `${author.firstName} ${author.lastName}`).join();
+  }
+
+  public authorsHandler(value: string) {
+    const newAuthors = value.split(',').map((author) => {
+      const [firstName, lastName] = author.trim().split(' ');
+      return { firstName, lastName };
+    });
+    this.course.authors = newAuthors.map((newAuthor) => {
+      const finded = this.course.authors
+        .find((author) => author.firstName === newAuthor.firstName && author.lastName === newAuthor.lastName);
+      if (finded) { return finded; } else { return newAuthor; }
+    });
+  }
+
+  public update() {
     if (this.course.id === null) {
       this.coursesService.onCreate(this.course).subscribe(() => this.router.navigate(['/']));
     } else {

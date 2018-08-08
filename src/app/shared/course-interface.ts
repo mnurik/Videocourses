@@ -1,3 +1,9 @@
+export interface AuthorsInterface {
+  id?: number;
+  lastName: string;
+  firstName: string;
+}
+
 export interface CourseInterface {
   id: number;
   name: string;
@@ -6,5 +12,5 @@ export interface CourseInterface {
   description: string;
   isTopRated: boolean;
   liked: boolean;
-  authors: string;
+  authors: AuthorsInterface[];
 }
