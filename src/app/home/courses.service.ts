@@ -10,10 +10,10 @@ export class CoursesService {
   private BASE_URL = 'http://localhost:3004/courses';
   public courses: CourseInterface[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  public getList(_page: string, _limit: string): Observable<CourseInterface[]> {
-    return this.http.get<CourseInterface[]>(`${this.BASE_URL}`, { params: { _page, _limit } });
+  public getList(start: string, count: string): Observable<CourseInterface[]> {
+    return this.http.get<CourseInterface[]>(`${this.BASE_URL}`, { params: { start, count } });
   }
 
   public onCreate(data): Observable<any> {
@@ -29,7 +29,7 @@ export class CoursesService {
   }
 
   public onSearch(value: string): Observable<CourseInterface[]> {
-    return this.http.get<CourseInterface[]>(`${this.BASE_URL}`, { params: { name: value } });
+    return this.http.get<CourseInterface[]>(`${this.BASE_URL}`, { params: { textFragment: value } });
   }
 
   public getById(id: string): Observable<CourseInterface> {

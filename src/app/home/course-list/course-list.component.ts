@@ -14,8 +14,8 @@ import { FilterPipe } from '../filter.pipe';
 export class CourseListComponent implements OnInit, OnDestroy {
   @Output() public deleteCourse = new EventEmitter();
   public courses: CourseInterface[] = [];
-  private limit = 2;
-  private page = 1;
+  private count = 5;
+  private start = 1;
   public isLoadMore = false;
 
   private onDeleteSubscription: Subscription;
@@ -28,8 +28,8 @@ export class CourseListComponent implements OnInit, OnDestroy {
     this.loadCourses();
   }
 
-  public loadCourses(page = `${this.page}`, limit = `${this.limit}`) {
-    this.onDeleteSubscription = this.coursesService.getList(page, limit).subscribe((courses: CourseInterface[]) => {
+  public loadCourses(start = `${this.start}`, count = `${this.count}`) {
+    this.onDeleteSubscription = this.coursesService.getList(start, count).subscribe((courses: CourseInterface[]) => {
       this.isLoadMore = !courses.length;
       this.courses = [...this.courses, ...courses];
     });
@@ -37,7 +37,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
 
   public onDelete(id: number) {
     this.getListSubscription = this.coursesService.onDelete(id).subscribe(() => {
-      this.page = 0;
+      this.start = 0;
       this.courses = [];
       this.loadCourses();
     });
@@ -54,7 +54,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   public loadMore() {
-    this.page++;
+    this.start++;
     this.loadCourses();
   }
 
