@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { BehaviorSubject } from 'rxjs';
 import { CoursesService } from '../home/courses.service';
 import { CourseInterface } from '../shared/course-interface';
 
@@ -8,10 +9,10 @@ import { CourseInterface } from '../shared/course-interface';
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseComponent implements OnInit {
-  public course: CourseInterface = {
+  private course = {
     id: null,
     name: '',
     description: '',
@@ -21,6 +22,7 @@ export class CourseComponent implements OnInit {
     liked: false,
     isTopRated: false,
   };
+  public course$: BehaviorSubject<CourseInterface> = new BehaviorSubject(this.course);
 
   constructor(private coursesService: CoursesService, private route: ActivatedRoute, private router: Router) { }
 
@@ -28,7 +30,7 @@ export class CourseComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.coursesService.getById(id).subscribe((course: CourseInterface) => {
-        this.course = Object.assign({}, this.course, course);
+        this.course$.next(Object.assign({}, this.course, course));
       });
     }
   }
@@ -39,6 +41,7 @@ export class CourseComponent implements OnInit {
 
   public set creationDate(value: string) {
     this.course.creationDate = new Date(value).getTime();
+    this.course$.next(this.course);
   }
 
   public get authors(): string {

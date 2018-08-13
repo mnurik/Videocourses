@@ -1,19 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { APP_BASE_HREF } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CoursesService } from '../../home/courses.service';
 import { CourseInterface } from '../../shared/course-interface';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
+import { LinkInterface } from './link-interface';
+
+@Component({
+  template: `
+    <app-breadcrumbs [addLinks]="addLinks"></app-breadcrumbs>
+  `,
+})
+class TestHostComponent {
+  public addLinks: LinkInterface[] = [{ name: 'test' }];
+}
 
 describe('BreadcrumbsComponent', () => {
-  let component: BreadcrumbsComponent;
-  let fixture: ComponentFixture<BreadcrumbsComponent>;
+  let component: TestHostComponent;
+  let fixture: ComponentFixture<TestHostComponent>;
   let coursesService;
   let getByIdSpy;
   const fakeCourse: Partial<CourseInterface> = {
-    title: 'test',
+    name: 'test',
   };
 
   beforeEach(async(() => {
@@ -21,7 +31,7 @@ describe('BreadcrumbsComponent', () => {
     getByIdSpy = coursesService.getById.and.returnValue(fakeCourse);
     TestBed.configureTestingModule({
       imports: [RouterModule.forRoot([])],
-      declarations: [BreadcrumbsComponent],
+      declarations: [BreadcrumbsComponent, TestHostComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
@@ -41,9 +51,6 @@ describe('BreadcrumbsComponent', () => {
   });
 
   it('should initialize list of links', () => {
-    expect(component.links).toEqual([{
-      name: 'Courses',
-      to: '/',
-    }, { name: 'test' }]);
+
   });
 });

@@ -8,7 +8,7 @@ import { LoginService } from './login.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnDestroy {
   private loginSubscription: Subscription;

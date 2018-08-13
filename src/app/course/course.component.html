@@ -1,26 +1,28 @@
-<app-breadcrumbs [addLinks]="[{name: course.name}]"></app-breadcrumbs>
-<form class="example-form">
-  <mat-form-field>
-    <input matInput placeholder="Name:" [(ngModel)]="course.name" name="name">
-  </mat-form-field>
+<ng-container *ngIf="course$ | async as course">
+  <app-breadcrumbs [addLinks]="[{name: course.name}]"></app-breadcrumbs>
+  <form class="example-form">
+    <mat-form-field>
+      <input matInput placeholder="Name:" [(ngModel)]="course.name" name="name">
+    </mat-form-field>
 
-  <mat-form-field>
-    <textarea matInput placeholder="Description" [(ngModel)]="course.description" name="description"></textarea>
-  </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Description" [(ngModel)]="course.description" name="description"></textarea>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput type="date" placeholder="Date:" [(ngModel)]="creationDate" name="creationDate">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput type="date" placeholder="Date:" [(ngModel)]="creationDate" name="creationDate">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput type="number " placeholder="Duration: " [(ngModel)]="course.duration " name="duration ">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number " placeholder="Duration: " [(ngModel)]="course.duration " name="duration ">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput type="number " placeholder="Authors: " [value]="authors" (blur)="authorsHandler($event.target.value)" name="authors ">
-    <mat-hint>Add authors with comma and space e.g. John Doe,Patsy Bright</mat-hint>
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number " placeholder="Authors: " [value]="authors" (blur)="authorsHandler($event.target.value)" name="authors ">
+      <mat-hint>Add authors with comma and space e.g. John Doe,Patsy Bright</mat-hint>
+    </mat-form-field>
 
-  <button type="submit" mat-stroked-button (click)="update() ">Save</button>
-  <button mat-stroked-button routerLink="/">Cancel</button>
-</form>
+    <button type="submit" mat-stroked-button (click)="update() ">Save</button>
+    <button mat-stroked-button routerLink="/">Cancel</button>
+  </form>
+</ng-container>

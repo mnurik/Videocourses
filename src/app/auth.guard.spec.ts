@@ -11,6 +11,7 @@ describe('AuthGuard', () => {
     LoginServiceStub = jasmine.createSpyObj('LoginService', ['isAuthenticated']);
     LoginServiceStub.isAuthenticated.and.returnValue(true);
     instance = new AuthGuard(LoginServiceStub);
+    TestBed.configureTestingModule({ providers: [{ provide: LoginService, useValue: LoginServiceStub }] });
   });
 
   it('should work', inject([AuthGuard], (guard: AuthGuard) => {

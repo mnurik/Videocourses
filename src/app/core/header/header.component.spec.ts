@@ -14,14 +14,17 @@ describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
   let LoginServiceStub;
   const fakeUser: Partial<UserInterface> = {
-    firstName: 'test firstName',
-    lastName: 'test firstName',
+    name: {
+      first: 'test firstName',
+      last: 'test firstName',
+    },
   };
   let de;
 
   beforeEach(async(() => {
     LoginServiceStub = jasmine.createSpyObj('LoginService', ['logout', 'isAuthenticated', 'getUserInfo']);
     LoginServiceStub.getUserInfo.and.returnValue(fakeUser);
+    LoginServiceStub.isAuthenticated.and.returnValue(true);
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{ path: 'login', component: LoginComponent }])],
       declarations: [HeaderComponent, LoginComponent],
