@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { take } from 'rxjs/add/operator/take';
+import { take } from 'rxjs/operators';
 import { LoginService } from '../../login/login.service';
 import { UserInterface } from '../user-interface';
 

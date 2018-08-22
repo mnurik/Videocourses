@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { CoursesService } from '../home/courses.service';
 import { CourseInterface } from '../shared/course-interface';
 
@@ -29,7 +30,7 @@ export class CourseComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.coursesService.getById(id).subscribe((course: CourseInterface) => {
+      this.coursesService.getById(id).pipe(take(1)).subscribe((course: CourseInterface) => {
         this.course$.next(Object.assign({}, this.course, course));
       });
     }
@@ -62,9 +63,9 @@ export class CourseComponent implements OnInit {
 
   public update() {
     if (this.course.id === null) {
-      this.coursesService.onCreate(this.course).subscribe(() => this.router.navigate(['/']));
+      this.coursesService.onCreate(this.course).pipe(take(1)).subscribe(() => this.router.navigate(['/']));
     } else {
-      this.coursesService.onUpdate(this.course).subscribe(() => this.router.navigate(['/']));
+      this.coursesService.onUpdate(this.course).pipe(take(1)).subscribe(() => this.router.navigate(['/']));
     }
   }
 }

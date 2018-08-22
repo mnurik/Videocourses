@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { debounceTime, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-toolbox',
@@ -8,13 +10,18 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
 })
 export class ToolboxComponent implements OnInit {
   @Output() public searchCourse = new EventEmitter();
-  public searchText = '';
+  public searchText$ = new BehaviorSubject('');
 
   constructor() { }
 
-  public ngOnInit() { }
+  public ngOnInit() {
+    this.searchText$.pipe(
+      filter((value) => value.length >= 3),
+      debounceTime(600),
+    ).subscribe((value) => this.searchCourse.emit(value));
+  }
 
-  public search() {
-    this.searchCourse.emit(this.searchText);
+  public set searchText(value: string) {
+    this.searchText$.next(value);
   }
 }

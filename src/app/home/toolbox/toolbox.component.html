@@ -1,10 +1,9 @@
 <div class="flex-sb toolbox-container">
-  <form class="toolbox__form" (ngSubmit)="search()">
+  <div class="toolbox__form">
     <mat-form-field>
       <input [(ngModel)]="searchText" name="searchText" matInput type="text" placeholder="Name, fragment or date">
     </mat-form-field>
-    <button type="submit" mat-stroked-button>Search</button>
-  </form>
+  </div>
   <button mat-stroked-button class="toolbox__add-course" routerLink="../course">
     <mat-icon>add</mat-icon> Add Course
   </button>
