@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { debounceTime, filter } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { debounceTime, filter, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-toolbox',
@@ -8,9 +8,12 @@ import { debounceTime, filter } from 'rxjs/operators';
   styleUrls: ['./toolbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToolboxComponent implements OnInit {
+export class ToolboxComponent implements OnInit, OnDestroy {
   @Output() public searchCourse = new EventEmitter();
   public searchText$ = new BehaviorSubject('');
+  // TODO destroy unsubscribe
+
+  private onDestroy$ = new Subject();
 
   constructor() { }
 
@@ -18,10 +21,15 @@ export class ToolboxComponent implements OnInit {
     this.searchText$.pipe(
       filter((value) => value.length >= 3),
       debounceTime(600),
+      takeUntil(this.onDestroy$),
     ).subscribe((value) => this.searchCourse.emit(value));
   }
 
   public set searchText(value: string) {
     this.searchText$.next(value);
+  }
+
+  public ngOnDestroy() {
+    this.onDestroy$.next();
   }
 }

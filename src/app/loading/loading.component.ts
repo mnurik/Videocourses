@@ -9,11 +9,9 @@ import { LoadingService } from './loading.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoadingComponent implements OnInit {
-  public status$ = new BehaviorSubject(null);
 
   constructor(public loadingService: LoadingService) { }
 
   ngOnInit() {
-    this.loadingService.visible().subscribe((value) => this.status$.next(value));
   }
 }

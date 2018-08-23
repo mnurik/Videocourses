@@ -16,12 +16,13 @@ export class CoursesService {
 
   public getList(start: string, count: string): Observable<CourseInterface[]> {
     return this.http.get<CourseInterface[]>(`${this.BASE_URL}`, { params: { start, count } })
-      .pipe(tap(() => { this.loadingService.toggle(false); }));
   }
 
   public onCreate(data): Observable<any> {
     return this.http.post<UserInterface>(`${this.BASE_URL}`, data)
-      .pipe(tap(() => { this.loadingService.toggle(false); }));
+      .pipe(
+        tap(() => this.loadingService.toggle(false)),
+      );
   }
 
   public onUpdate({ id, ...rest }: CourseInterface): Observable<any> {

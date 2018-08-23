@@ -1,5 +1,6 @@
-import { HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { LoadingService } from '../loading/loading.service';
 
 @Injectable()
@@ -17,6 +18,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
     this.loadingService.toggle(true);
 
-    return next.handle(authReq || req);
+    return next.handle(authReq || req).pipe(
+      map((event) => {
+        if (event instanceof HttpResponse) {
+          this.loadingService.toggle(false);
+        }
+        return event;
+      }),
+    );
   }
 }
