@@ -2,7 +2,7 @@
   <app-breadcrumbs [addLinks]="[{name: course.name}]"></app-breadcrumbs>
   <form class="example-form">
     <mat-form-field>
-      <input matInput placeholder="Name:" [(ngModel)]="course.name" name="name">
+      <input matInput placeholder="Name" [(ngModel)]="course.name" name="name">
     </mat-form-field>
 
     <mat-form-field>
@@ -10,15 +10,15 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="date" placeholder="Date:" [(ngModel)]="creationDate" name="creationDate">
+      <input matInput type="date" placeholder="Date" [(ngModel)]="creationDate" name="creationDate">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="number " placeholder="Duration: " [(ngModel)]="course.duration " name="duration ">
+      <input matInput type="number" placeholder="Duration" [(ngModel)]="course.duration " name="duration ">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="number " placeholder="Authors: " [value]="authors" (blur)="authorsHandler($event.target.value)" name="authors ">
+      <input matInput type="number" placeholder="Authors" [value]="authors" (blur)="authorsHandler($event.target.value)" name="authors ">
       <mat-hint>Add authors with comma and space e.g. John Doe,Patsy Bright</mat-hint>
     </mat-form-field>
 
