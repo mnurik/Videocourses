@@ -1,11 +1,13 @@
 import { Action } from '@ngrx/store';
+import { UserInterface } from '../../core/user-interface';
 
 export enum LayoutActionTypes {
-  Login = '[Layout] Open Sidenav',
+  Login = 'LOGIN',
 }
 
-export class Login implements Action {
+export class LoginAction implements Action {
   readonly type = LayoutActionTypes.Login;
+  constructor(private payload: any) { }
 }
 
-export type LayoutActions = Login;
+export type LayoutActions = LoginAction;

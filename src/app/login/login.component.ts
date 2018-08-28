@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Effect } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '../../../node_modules/@angular/common/http';
 import { Subscription } from '../../../node_modules/rxjs';
+import { AppState } from '../store/store.interface';
 import { LoginService } from './login.service';
-import { Store } from '@ngrx/store';
+import { LoginAction } from '../store/actions/layout';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,7 @@ export class LoginComponent implements OnDestroy {
   private loginSubscription: Subscription;
   public errorMessage = '';
 
-  constructor(private loginService: LoginService, private router: Router, private store: Store) { }
+  constructor(private loginService: LoginService, private router: Router, private store: Store<AppState>) { }
 
   public onSubmit(username, password) {
     this.loginSubscription = this.loginService.login(username, password).subscribe(({ token }) => {
@@ -26,9 +28,9 @@ export class LoginComponent implements OnDestroy {
     },
       (res: HttpErrorResponse) => this.errorMessage = res.error,
     );
-  }
 
-  @Effect()
+    this.store.dispatch(new LoginAction({ username, password }));
+  }
 
   ngOnDestroy() {
     this.loginSubscription.unsubscribe();
