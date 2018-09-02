@@ -4,7 +4,7 @@ import { UserInterface } from '../../core/user-interface';
 export enum LoginActionTypes {
   LoginRequest = '[LOGIN] Request',
   LoginSuccess = '[LOGIN] Success',
-  LoginFailure = '[LOGIN] Error',
+  LoginFailure = '[LOGIN] Failure',
   LoginRedirect = '[LOGIN] Redirect',
   Logout = '[LOGIN] Logout',
 }
@@ -21,7 +21,7 @@ export class LoginSuccessAction implements Action {
 
 export class LoginFailureAction implements Action {
   readonly type = LoginActionTypes.LoginFailure;
-  constructor(public payload: any) { }
+  constructor(public payload: string) { }
 }
 
 export class LoginRedirectAction implements Action {

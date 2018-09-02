@@ -1,10 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { BehaviorSubject } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { CoursesService } from '../home/courses.service';
+import { Observable } from 'rxjs';
+import { map, take, tap } from 'rxjs/operators';
 import { CourseInterface } from '../shared/course-interface';
+import * as CourseActions from '../store/actions/courses.actions';
+import { CoursesStateInterface } from '../store/reducers/courses.reducer';
+import { AppState } from '../store/store.interface';
 
 @Component({
   selector: 'app-course',
@@ -12,41 +15,34 @@ import { CourseInterface } from '../shared/course-interface';
   styleUrls: ['./course.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseComponent implements OnInit {
-  private course = {
-    id: null,
-    name: '',
-    description: '',
-    authors: [],
-    creationDate: new Date().getTime(),
-    duration: 0,
-    liked: false,
-    isTopRated: false,
-  };
-  public course$: BehaviorSubject<CourseInterface> = new BehaviorSubject(this.course);
+export class CourseComponent implements OnInit, OnDestroy {
+  public course$;
 
-  constructor(private coursesService: CoursesService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, private store$: Store<AppState>) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.coursesService.getById(id).pipe(take(1)).subscribe((course: CourseInterface) => {
-        this.course$.next(Object.assign({}, this.course, course));
-      });
-    }
+    this.course$ = this.store$.pipe(
+      select('courses'),
+      map((coursesState: CoursesStateInterface) => coursesState.course),
+    );
+    this.store$.dispatch(new CourseActions.FetchCourseDataRequestAction(this.route.snapshot.paramMap.get('id')));
   }
 
-  public get creationDate(): string {
-    return moment(this.course.creationDate).format('YYYY-MM-DD');
-  }
+  // public get creationDate(): Observable<string> {
+  //   return this.course$.pipe(
+  //     map((course: CourseInterface) => moment(course.creationDate).format('YYYY-MM-DD')),
+  //   );
+  // }
 
-  public set creationDate(value: string) {
-    this.course.creationDate = new Date(value).getTime();
-    this.course$.next(this.course);
-  }
+  // public set creationDate(value: Observable<string>) {
+  //   this.course.creationDate = new Date(value).getTime();
+  //   this.course$.next(this.course);
+  // }
 
-  public get authors(): string {
-    return this.course.authors.map((author) => `${author.firstName} ${author.lastName}`).join();
+  public get authors(): Observable<string> {
+    return this.course$.pipe(
+      map((course: CourseInterface) => course.authors.map((author) => `${author.firstName} ${author.lastName}`).join()),
+    );
   }
 
   public authorsHandler(value: string) {
@@ -54,18 +50,23 @@ export class CourseComponent implements OnInit {
       const [firstName, lastName] = author.trim().split(' ');
       return { firstName, lastName };
     });
-    this.course.authors = newAuthors.map((newAuthor) => {
-      const finded = this.course.authors
-        .find((author) => author.firstName === newAuthor.firstName && author.lastName === newAuthor.lastName);
-      if (finded) { return finded; } else { return newAuthor; }
-    });
+    this.course$.pipe(
+      map((course: CourseInterface) => {
+        course.authors = newAuthors.map((newAuthor) => {
+          const finded = course.authors
+            .find((author) => author.firstName === newAuthor.firstName && author.lastName === newAuthor.lastName);
+          if (finded) { return finded; } else { return newAuthor; }
+        });
+        return course;
+      }),
+    );
   }
 
   public update() {
-    if (this.course.id === null) {
-      this.coursesService.onCreate(this.course).pipe(take(1)).subscribe(() => this.router.navigate(['/']));
-    } else {
-      this.coursesService.onUpdate(this.course).pipe(take(1)).subscribe(() => this.router.navigate(['/']));
-    }
+    this.store$.dispatch(new CourseActions.CourseUpdateRequestAction(this.course$));
+  }
+
+  ngOnDestroy() {
+    this.store$.dispatch(new CourseActions.CourseResetAction());
   }
 }

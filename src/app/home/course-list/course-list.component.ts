@@ -1,7 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subscription } from '../../../../node_modules/rxjs';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { Observable } from '../../../../node_modules/rxjs';
 import { CourseInterface } from '../../shared/course-interface';
-import { CoursesService } from '../courses.service';
+import * as CoursesActions from '../../store/actions/courses.actions';
+import { CoursesStateInterface } from '../../store/reducers/courses.reducer';
+import { AppState } from '../../store/store.interface';
 import { FilterPipe } from '../filter.pipe';
 
 @Component({
@@ -9,64 +13,40 @@ import { FilterPipe } from '../filter.pipe';
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
   providers: [FilterPipe],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseListComponent implements OnInit, OnDestroy {
+export class CourseListComponent implements OnInit {
   @Output() public deleteCourse = new EventEmitter();
-  public courses: CourseInterface[] = [];
-  private count = 5;
-  private start = 1;
-  public isLoadMore = false;
+  public courses$: Observable<CourseInterface[]>;
 
-  private onDeleteSubscription: Subscription;
-  private getListSubscription: Subscription;
-  private onSearchSubscription: Subscription;
-
-  constructor(private coursesService: CoursesService, private filterCourses: FilterPipe) { }
+  constructor(private store$: Store<AppState>) { }
 
   public ngOnInit() {
     this.loadCourses();
+    this.courses$ = this.store$.pipe(
+      select('courses'),
+      map((courses: CoursesStateInterface) => courses.list),
+    );
   }
 
-  public loadCourses(start = `${this.start}`, count = `${this.count}`) {
-    this.onDeleteSubscription = this.coursesService.getList(start, count).subscribe((courses: CourseInterface[]) => {
-      this.isLoadMore = !courses.length;
-      this.courses = [...this.courses, ...courses];
-    });
+  public loadCourses() {
+    this.store$.dispatch(new CoursesActions.CoursesLoadRequestAction());
   }
 
   public onDelete(id: number) {
-    this.getListSubscription = this.coursesService.onDelete(id).subscribe(() => {
-      this.start = 0;
-      this.courses = [];
-      this.loadCourses();
-    });
+    this.store$.dispatch(new CoursesActions.CoursesDeleteRequestAction(id));
   }
 
   public onLike(id: number) {
-    this.coursesService.onLike(id);
+    this.store$.dispatch(new CoursesActions.CourseLikeRequestAction(id));
   }
 
   public onSearch(value: string) {
-    this.onSearchSubscription = this.coursesService.onSearch(value).subscribe((courses: CourseInterface[]) => {
-      this.courses = courses;
-    });
+    this.store$.dispatch(new CoursesActions.CoursesSearchRequestAction(value));
   }
 
   public loadMore() {
-    this.start++;
+    this.store$.dispatch(new CoursesActions.CoursesPageAddAction());
     this.loadCourses();
-  }
-
-  ngOnDestroy() {
-    if (this.onDeleteSubscription) {
-      this.onDeleteSubscription.unsubscribe();
-    }
-    if (this.getListSubscription) {
-      this.getListSubscription.unsubscribe();
-    }
-    if (this.onSearchSubscription) {
-      this.onSearchSubscription.unsubscribe();
-    }
   }
 }

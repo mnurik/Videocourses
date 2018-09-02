@@ -13,7 +13,8 @@ import { CourseModule } from './course/course.module';
 import { httpInterceptorProviders } from './http-interceptors';
 import { LoadingComponent } from './loading/loading.component';
 import { NotFoundComponent } from './not-found/not-found/not-found.component';
-import { courseReducer } from './store/reducers/courses';
+import { coursesReducer } from './store/reducers/courses.reducer';
+import { loginReducer } from './store/reducers/login.reducer';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent, LoadingComponent],
@@ -24,7 +25,7 @@ import { courseReducer } from './store/reducers/courses';
     AppRoutingModule,
     CourseModule.forRoot(),
     HttpClientModule,
-    StoreModule.forRoot(courseReducer),
+    StoreModule.forRoot({ courses: coursesReducer, login: loginReducer }),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,

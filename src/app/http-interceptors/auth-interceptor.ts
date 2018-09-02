@@ -1,6 +1,6 @@
 import { HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { LoadingService } from '../loading/loading.service';
 
 @Injectable()

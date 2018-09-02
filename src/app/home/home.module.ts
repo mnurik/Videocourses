@@ -8,7 +8,9 @@ import {
   MatListModule,
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from '../core/core.module';
+import { CoursesEffects } from '../store/effects/courses.effects';
 import { CourseItemComponent } from './course-item/course-item.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { FilterPipe } from './filter.pipe';
@@ -28,6 +30,7 @@ import { ToolboxComponent } from './toolbox/toolbox.component';
     HomeRoutingModule,
     RouterModule,
     CoreModule,
+    EffectsModule.forFeature([CoursesEffects]),
   ],
   providers: [
   ],

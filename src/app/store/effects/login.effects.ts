@@ -27,7 +27,7 @@ export class LoginEffects {
         .login(auth.login, auth.password)
         .pipe(
           map((res) => new LoginSuccessAction(res.token)),
-          catchError((error) => of(new LoginFailureAction(error))),
+          catchError((res) => of(new LoginFailureAction(res.error))),
         ),
     ),
   );
