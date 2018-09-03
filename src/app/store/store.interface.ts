@@ -1,3 +1,11 @@
+import { CourseInterface } from '../shared/course-interface';
+
 export interface AppState {
-  data: any;
+  login: string;
+  courses: {
+    start: number;
+    limit: number;
+    list: CourseInterface[];
+    course: CourseInterface;
+  };
 }

@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { map, take } from 'rxjs/operators';
 import { LoginService } from '../../login/login.service';
-import { UserInterface } from '../user-interface';
+import { GetUserInfoRequestAction, LogoutAction } from '../../store/actions/login.actions';
+import { LoginStateInterface } from '../../store/reducers/login.reducer';
+import { AppState } from '../../store/store.interface';
 
 @Component({
   selector: 'app-header',
@@ -12,39 +13,26 @@ import { UserInterface } from '../user-interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  public user$ = new BehaviorSubject<{ first: string; last: string }>(null);
+  public user$;
 
-  private routerSubscription: Subscription;
-
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private store$: Store<AppState>) { }
 
   ngOnInit() {
-    this.routerSubscription = this.router.events.subscribe((event: RouterEvent) => {
-      if (event instanceof NavigationEnd) {
-        this.loadData();
-      }
-    });
-  }
+    this.user$ = this.store$.pipe(
+      select('login'),
+      map((loginState: LoginStateInterface) => loginState.user),
+    );
 
-  loadData() {
     if (this.loginService.isAuthenticated()) {
-      this.loginService.getUserInfo().pipe(take(1))
-        .subscribe((user: UserInterface) => this.user$.next(user.name));
-    } else {
-      this.user$.next(null);
+      this.store$.dispatch(new GetUserInfoRequestAction());
     }
   }
 
-  public onLogOut(): void {
-    this.logout();
-  }
-
   public logout(): void {
-    this.loginService.logout();
-    this.router.navigate(['/login']);
+    this.store$.dispatch(new LogoutAction());
   }
 
   public ngOnDestroy() {
-    this.routerSubscription.unsubscribe();
+    this.user$.unsubscribe();
   }
 }

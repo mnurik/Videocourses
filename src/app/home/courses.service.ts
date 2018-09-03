@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserInterface } from '../core/user-interface';
+import { UserInterface } from '../shared/user-interface';
 import { LoadingService } from '../loading/loading.service';
 import { CourseInterface } from '../shared/course-interface';
 

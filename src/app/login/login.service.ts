@@ -2,7 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { Observable } from '../../../node_modules/rxjs';
-import { UserInterface } from '../core/user-interface';
+import { UserInterface } from '../shared/user-interface';
 import { LoadingService } from '../loading/loading.service';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 
-import { UserInterface } from '../core/user-interface';
+import { UserInterface } from '../shared/user-interface';
 import { LoginService } from './login.service';
 
 describe('LoginService', () => {

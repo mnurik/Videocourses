@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
-import { UserInterface } from '../../core/user-interface';
 import { LoginService } from '../../login/login.service';
-import { LoginActionTypes, LoginFailureAction, LoginRequestAction, LoginSuccessAction } from '../actions/login.actions';
+import { UserInterface } from '../../shared/user-interface';
+import { GetUserInfoFailureAction, GetUserInfoRequestAction, GetUserInfoSuccessAction, LoginActionTypes, LoginFailureAction, LoginRequestAction, LoginSuccessAction } from '../actions/login.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -32,20 +32,33 @@ export class LoginEffects {
     ),
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
   loginSuccess$ = this.actions$.pipe(
     ofType(LoginActionTypes.LoginSuccess),
-    tap((action: LoginSuccessAction) => {
+    map((action: LoginSuccessAction) => {
       localStorage.setItem('token', action.payload);
       this.router.navigate(['/']);
+      return new GetUserInfoRequestAction();
     }),
   );
 
   @Effect({ dispatch: false })
   loginRedirect$ = this.actions$.pipe(
     ofType(LoginActionTypes.LoginRedirect, LoginActionTypes.Logout),
-    tap((authed) => {
+    tap(() => {
+      this.loginService.logout();
       this.router.navigate(['/login']);
     }),
+  );
+
+  @Effect()
+  public getUserInfo$: any = this.actions$.pipe(
+    ofType(LoginActionTypes.GetUserInfoRequest),
+    exhaustMap(() =>
+      this.loginService.getUserInfo().pipe(
+        map((user: UserInterface) => new GetUserInfoSuccessAction(user)),
+        catchError((res) => of(new GetUserInfoFailureAction(res.error))),
+      ),
+    ),
   );
 }

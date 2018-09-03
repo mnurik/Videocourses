@@ -6,7 +6,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LoginComponent } from '../../login/login.component';
 import { LoginService } from '../../login/login.service';
-import { UserInterface } from '../user-interface';
+import { UserInterface } from '../../shared/user-interface';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {

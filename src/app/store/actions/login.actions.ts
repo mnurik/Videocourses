@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { UserInterface } from '../../core/user-interface';
+import { UserInterface } from '../../shared/user-interface';
 
 export enum LoginActionTypes {
   LoginRequest = '[LOGIN] Request',
@@ -7,6 +7,10 @@ export enum LoginActionTypes {
   LoginFailure = '[LOGIN] Failure',
   LoginRedirect = '[LOGIN] Redirect',
   Logout = '[LOGIN] Logout',
+
+  GetUserInfoRequest = '[USER] GetInfo Request',
+  GetUserInfoSuccess = '[USER] Get Info Success',
+  GetUserInfoFailure = '[USER] Get Info Failure',
 }
 
 export class LoginRequestAction implements Action {
@@ -31,11 +35,29 @@ export class LoginRedirectAction implements Action {
 
 export class LogoutAction implements Action {
   readonly type = LoginActionTypes.Logout;
-  constructor(public payload: any) { }
+  constructor() { }
+}
+
+export class GetUserInfoRequestAction implements Action {
+  readonly type = LoginActionTypes.GetUserInfoRequest;
+  constructor() { }
+}
+
+export class GetUserInfoSuccessAction implements Action {
+  readonly type = LoginActionTypes.GetUserInfoSuccess;
+  constructor(public payload: UserInterface) { }
+}
+
+export class GetUserInfoFailureAction implements Action {
+  readonly type = LoginActionTypes.GetUserInfoFailure;
+  constructor(public payload: string) { }
 }
 
 export type LoginActions = LoginRequestAction
   | LoginSuccessAction
   | LoginFailureAction
   | LoginRedirectAction
-  | LogoutAction;
+  | LogoutAction
+  | GetUserInfoRequestAction
+  | GetUserInfoSuccessAction
+  | GetUserInfoFailureAction;

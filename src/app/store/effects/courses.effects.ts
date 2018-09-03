@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, filter, map, tap, withLatestFrom, take, distinctUntilChanged } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, exhaustMap, filter, map, tap, withLatestFrom } from 'rxjs/operators';
 import { CoursesService } from '../../home/courses.service';
 import { CourseInterface } from '../../shared/course-interface';
 import * as CoursesActions from '../actions/courses.actions';
