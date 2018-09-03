@@ -12,7 +12,7 @@ import { AppState } from '../../store/store.interface';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
   public user$;
 
   constructor(private loginService: LoginService, private store$: Store<AppState>) { }
@@ -30,9 +30,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public logout(): void {
     this.store$.dispatch(new LogoutAction());
-  }
-
-  public ngOnDestroy() {
-    this.user$.unsubscribe();
   }
 }

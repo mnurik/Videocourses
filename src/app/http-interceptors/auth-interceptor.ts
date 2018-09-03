@@ -25,6 +25,10 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         return event;
       }),
+      catchError((event) => {
+        this.loadingService.toggle(false);
+        throw event;
+      }),
     );
   }
 }

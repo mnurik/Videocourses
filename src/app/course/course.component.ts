@@ -28,20 +28,23 @@ export class CourseComponent implements OnInit, OnDestroy {
     this.store$.dispatch(new CourseActions.FetchCourseDataRequestAction(this.route.snapshot.paramMap.get('id')));
   }
 
-  // public get creationDate(): Observable<string> {
-  //   return this.course$.pipe(
-  //     map((course: CourseInterface) => moment(course.creationDate).format('YYYY-MM-DD')),
-  //   );
-  // }
+  public get creationDate(): Observable<string> {
+    return this.course$.pipe(
+      map((course: CourseInterface) => moment(course.creationDate).format('YYYY-MM-DD')),
+    );
+  }
 
-  // public set creationDate(value: Observable<string>) {
-  //   this.course.creationDate = new Date(value).getTime();
-  //   this.course$.next(this.course);
-  // }
+  public setCreationDate(course, value) {
+    course.creationDate = new Date(value).getTime();
+    // this.course$.next(this.course);
+  }
 
   public get authors(): Observable<string> {
     return this.course$.pipe(
-      map((course: CourseInterface) => course.authors.map((author) => `${author.firstName} ${author.lastName}`).join()),
+      map((course: CourseInterface) => {
+        // this.course = course;
+        return course.authors.map((author) => `${author.firstName} ${author.lastName}`).join();
+      }),
     );
   }
 
