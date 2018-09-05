@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { Observable, Subscription } from '../../../node_modules/rxjs';
 import { LoginRequestAction } from '../store/actions/login.actions';
 import { LoginStateInterface } from '../store/reducers/login.reducer';
 import { AppState } from '../store/store.interface';
@@ -14,20 +14,20 @@ import { LoginService } from './login.service';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent {
   public errorMessage$;
+  public loginForm = new FormGroup({
+    login: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  });
 
-  constructor(private loginService: LoginService, private router: Router, private store$: Store<AppState>) { }
+  constructor(private store$: Store<AppState>) { }
 
-  public onSubmit(login, password) {
-    this.store$.dispatch(new LoginRequestAction({ login, password }));
+  public onSubmit() {
+    this.store$.dispatch(new LoginRequestAction(this.loginForm.value));
     this.errorMessage$ = this.store$.pipe(
       select('login'),
       map((loginState: LoginStateInterface) => loginState.errorMessage),
     );
-  }
-
-  ngOnDestroy() {
-    this.errorMessage$.unsubscribe();
   }
 }

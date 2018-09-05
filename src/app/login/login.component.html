@@ -1,19 +1,19 @@
 <div class="text-center login-container">
-  <form class="form-signin" (ngSubmit)="onSubmit(usernameInput.value, passwordInput.value)">
+  <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input #usernameInput id="inputEmail" [ngClass]="{'form-control': true, 'mb-3': true, 'error-input': !!errorMessage}" placeholder="Username"
-      required="" autofocus="">
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input #passwordInput type="password" id="inputPassword" [ngClass]="{'form-control': true, 'mb-3': true, 'error-input': !!errorMessage}"
-      placeholder="Password" required="">
+    <mat-form-field>
+      <input formControlName="login" name="inputEmail" matInput type="text" placeholder="Login">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="password" name="inputPassword" matInput type="text" placeholder="Password">
+    </mat-form-field>
     <div class="checkbox mb-3">
       <label>
         <input type="checkbox" value="remember-me"> Remember me
       </label>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block" [disabled]="loginForm.invalid" type="submit">Sign in</button>
     <div *ngIf="errorMessage$ | async as errorMessage" class="alert alert-danger mt-3" role="alert">{{errorMessage}}</div>
     <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
   </form>

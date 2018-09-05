@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material';
 import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '../../../node_modules/@angular/common';
 import { LoginEffects } from '../store/effects/login.effects';
@@ -12,7 +13,9 @@ import { LoginService } from './login.service';
     CommonModule,
     LoginRoutingModule,
     FormsModule,
+    MatInputModule,
     EffectsModule.forFeature([LoginEffects]),
+    ReactiveFormsModule,
   ],
   exports: [LoginComponent],
   declarations: [LoginComponent],
