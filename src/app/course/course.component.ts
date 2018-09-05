@@ -1,10 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+
+import { AuthorInterface } from '../shared/author-interface';
 import { CourseInterface } from '../shared/course-interface';
+import { AuthorsLoadRequestAction } from '../store/actions/authors.actions';
 import * as CourseActions from '../store/actions/courses.actions';
 import { CoursesStateInterface } from '../store/reducers/courses.reducer';
 import { AppState } from '../store/store.interface';
@@ -15,58 +18,48 @@ import { AppState } from '../store/store.interface';
   styleUrls: ['./course.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseComponent implements OnInit, OnDestroy {
-  public course$;
+export class CourseComponent implements OnInit, OnDestroy, OnChanges {
+  public course$: Observable<CourseInterface>;
+  public availableAuthorList$: Observable<AuthorInterface[]>;
+  public courseName = '';
+  public courseForm = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    description: new FormControl('', [Validators.required, Validators.maxLength(500)]),
+    authors: new FormControl('', Validators.required),
+  });
 
-  constructor(private route: ActivatedRoute, private router: Router, private store$: Store<AppState>) { }
+  constructor(private route: ActivatedRoute, private store$: Store<AppState>) { }
 
   ngOnInit() {
     this.course$ = this.store$.pipe(
       select('courses'),
       map((coursesState: CoursesStateInterface) => coursesState.course),
     );
-    this.store$.dispatch(new CourseActions.FetchCourseDataRequestAction(this.route.snapshot.paramMap.get('id')));
-  }
-
-  public get creationDate(): Observable<string> {
-    return this.course$.pipe(
-      map((course: CourseInterface) => moment(course.creationDate).format('YYYY-MM-DD')),
+    this.availableAuthorList$ = this.store$.pipe(
+      select('authors'),
     );
+    this.store$.dispatch(new CourseActions.FetchCourseDataRequestAction(this.route.snapshot.paramMap.get('id')));
+    this.store$.dispatch(new AuthorsLoadRequestAction());
   }
 
-  public setCreationDate(course, value) {
-    course.creationDate = new Date(value).getTime();
-    // this.course$.next(this.course);
-  }
+  ngOnChanges() {
+    this.course$.pipe(
+      tap((course: CourseInterface) => {
+        console.log(course);
 
-  public get authors(): Observable<string> {
-    return this.course$.pipe(
-      map((course: CourseInterface) => {
-        // this.course = course;
-        return course.authors.map((author) => `${author.firstName} ${author.lastName}`).join();
+        this.courseForm.setValue(course);
       }),
     );
-  }
 
-  public authorsHandler(value: string) {
-    const newAuthors = value.split(',').map((author) => {
-      const [firstName, lastName] = author.trim().split(' ');
-      return { firstName, lastName };
-    });
-    this.course$.pipe(
-      map((course: CourseInterface) => {
-        course.authors = newAuthors.map((newAuthor) => {
-          const finded = course.authors
-            .find((author) => author.firstName === newAuthor.firstName && author.lastName === newAuthor.lastName);
-          if (finded) { return finded; } else { return newAuthor; }
-        });
-        return course;
+    this.courseForm.valueChanges.pipe(
+      tap((course: CourseInterface) => {
+        this.courseName = course.name;
       }),
     );
   }
 
   public update() {
-    this.store$.dispatch(new CourseActions.CourseUpdateRequestAction(this.course$));
+    this.store$.dispatch(new CourseActions.CourseUpdateRequestAction(this.courseForm.value));
   }
 
   ngOnDestroy() {

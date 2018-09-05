@@ -13,6 +13,7 @@ import { CourseModule } from './course/course.module';
 import { httpInterceptorProviders } from './http-interceptors';
 import { LoadingComponent } from './loading/loading.component';
 import { NotFoundComponent } from './not-found/not-found/not-found.component';
+import { authorReducer } from './store/reducers/authors.reducer';
 import { coursesReducer } from './store/reducers/courses.reducer';
 import { loginReducer } from './store/reducers/login.reducer';
 
@@ -25,7 +26,7 @@ import { loginReducer } from './store/reducers/login.reducer';
     AppRoutingModule,
     CourseModule.forRoot(),
     HttpClientModule,
-    StoreModule.forRoot({ courses: coursesReducer, login: loginReducer }),
+    StoreModule.forRoot({ courses: coursesReducer, login: loginReducer, authors: authorReducer }),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
