@@ -106,7 +106,7 @@ export class CourseCreateFailureAction implements Action {
 
 export class CourseUpdateRequestAction implements Action {
   readonly type = CoursesActionTypes.CourseUpdateRequest;
-  constructor(public payload: Observable<CourseInterface>) { }
+  constructor(public payload: CourseInterface) { }
 }
 
 export class CourseUpdateSuccessAction implements Action {

@@ -1,26 +1,20 @@
 <app-breadcrumbs [addLinks]="[{name: courseName}]"></app-breadcrumbs>
 <form class="example-form" [formGroup]="courseForm" (ngSubmit)="update()">
   <mat-form-field>
-    <input matInput placeholder="Name" name="name" formControlName="name">
+    <input matInput placeholder="Name" name="name" formControlName="name" required>
   </mat-form-field>
   <mat-form-field>
-    <textarea matInput placeholder="Description" name="description" formControlName="description"></textarea>
+    <textarea matInput placeholder="Description" name="description" formControlName="description" required></textarea>
   </mat-form-field>
 
   <app-creation-date formControlName="creationDate"></app-creation-date>
-  <!-- 
-    <mat-form-field>
-      <input matInput type="number" placeholder="Duration" [(ngModel)]="course.duration" name="duration ">
-    </mat-form-field> -->
-
-  <!-- <mat-form-field>
-      <input matInput type="number" placeholder="Authors" [value]="authors$ | async" (blur)="authorsHandler($event.target.value)"
-        name="authors ">
-      <mat-hint>Add authors with comma and space e.g. John Doe,Patsy Bright</mat-hint>
-    </mat-form-field> -->
 
   <mat-form-field>
-    <mat-select placeholder="Authors" formControlName="authors" multiple>
+    <input matInput placeholder="Duration" formControlName="duration" name="duration" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Authors" formControlName="authors" multiple required>
       <mat-option *ngFor="let author of availableAuthorList$ | async" [value]="author.id">{{author.name}}</mat-option>
     </mat-select>
   </mat-form-field>

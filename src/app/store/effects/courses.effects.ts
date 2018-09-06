@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, distinctUntilChanged, exhaustMap, filter, map, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, exhaustMap, filter, map, tap, withLatestFrom } from 'rxjs/operators';
 import { CoursesService } from '../../home/courses.service';
 import { CourseInterface } from '../../shared/course-interface';
 import * as CoursesActions from '../actions/courses.actions';
@@ -90,8 +90,7 @@ export class CoursesEffects {
   @Effect()
   public courseUpdate$: any = this.actions$.pipe(
     ofType(CoursesActions.CoursesActionTypes.CourseUpdateRequest),
-    exhaustMap((action: CoursesActions.CourseUpdateRequestAction) => action.payload),
-    distinctUntilChanged(),
+    map((action: CoursesActions.CourseUpdateRequestAction) => action.payload),
     exhaustMap((data: CourseInterface) => {
       if (data.id) {
         return this.coursesService.onUpdate(data).pipe(
