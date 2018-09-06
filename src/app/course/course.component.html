@@ -7,12 +7,8 @@
     <textarea matInput placeholder="Description" name="description" formControlName="description"></textarea>
   </mat-form-field>
 
+  <app-creation-date formControlName="creationDate"></app-creation-date>
   <!-- 
-    <mat-form-field>
-      <input matInput type="date" placeholder="Date" [ngModel]="creationDate | async" (ngModelChange)="setCreationDate(course, $event)"
-        name="creationDate">
-    </mat-form-field>
-
     <mat-form-field>
       <input matInput type="number" placeholder="Duration" [(ngModel)]="course.duration" name="duration ">
     </mat-form-field> -->

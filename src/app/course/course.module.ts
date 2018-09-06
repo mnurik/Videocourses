@@ -10,6 +10,7 @@ import { AuthorsEffects } from '../store/effects/authors.effects';
 import { CoursesEffects } from '../store/effects/courses.effects';
 import { CourseRoutingModule } from './course-routing.module';
 import { CourseComponent } from './course.component';
+import { CreationDateComponent } from './creation-date/creation-date.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,7 @@ import { CourseComponent } from './course.component';
     MatSelectModule,
     ReactiveFormsModule,
   ],
-  declarations: [CourseComponent],
+  declarations: [CourseComponent, CreationDateComponent],
 })
 export class CourseModule {
   public static forRoot() {
