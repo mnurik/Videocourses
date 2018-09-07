@@ -23,16 +23,18 @@ export class CourseComponent implements OnInit, OnDestroy {
   public course$: Observable<CourseInterface>;
   public availableAuthorList$: Observable<AuthorInterface[]>;
   public courseName = '';
-  public courseForm = this.fb.group({
-    id: null,
-    name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    description: new FormControl('', [Validators.required, Validators.maxLength(500)]),
-    authors: new FormControl('', Validators.required),
-    duration: new FormControl('', [Validators.required, NumberValidator]),
-    creationDate: '',
-  });
+  public courseForm: any;
 
-  constructor(private route: ActivatedRoute, private store$: Store<AppState>, private fb: FormBuilder) { }
+  constructor(private route: ActivatedRoute, private store$: Store<AppState>, private fb: FormBuilder) {
+    this.courseForm = this.fb.group({
+      id: null,
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(500)]],
+      authors: ['', Validators.required],
+      duration: ['', [Validators.required, NumberValidator]],
+      creationDate: [''],
+    });
+  }
 
   ngOnInit() {
     this.course$ = this.store$.pipe(
@@ -56,7 +58,9 @@ export class CourseComponent implements OnInit, OnDestroy {
   }
 
   public update() {
-    this.store$.dispatch(new CourseActions.CourseUpdateRequestAction(this.courseForm.value));
+    if (this.courseForm.dirty && this.courseForm.valid) {
+      this.store$.dispatch(new CourseActions.CourseUpdateRequestAction(this.courseForm.value));
+    }
   }
 
   ngOnDestroy() {

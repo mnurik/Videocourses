@@ -2,10 +2,12 @@
   <div class="toolbox__form">
     <mat-form-field>
       <input [formControl]="search" name="searchText" matInput type="text" placeholder="Name, fragment or date">
+      <mat-error *ngIf="search.errors && search.errors.minlength">
+        Search text must be at least 3 characters long.
+      </mat-error>
     </mat-form-field>
   </div>
   <button mat-stroked-button class="toolbox__add-course" routerLink="../course">
     <mat-icon>add</mat-icon> Add Course
   </button>
 </div>
-<span>Search results for: {{searchText}}</span>

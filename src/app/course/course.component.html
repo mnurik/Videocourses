@@ -2,21 +2,42 @@
 <form class="example-form" [formGroup]="courseForm" (ngSubmit)="update()">
   <mat-form-field>
     <input matInput placeholder="Name" name="name" formControlName="name" required>
+    <mat-error *ngIf="courseForm.get('name').hasError('required') && courseForm.get('name').touched">
+      Name is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="courseForm.get('name').hasError('maxlength') && courseForm.get('name').touched">
+      Name must be max 50 characters long.
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <textarea matInput placeholder="Description" name="description" formControlName="description" required></textarea>
+    <mat-error *ngIf="courseForm.get('description').hasError('required') && courseForm.get('description').touched">
+      Description is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="courseForm.get('description').hasError('maxlength') && courseForm.get('description').touched">
+      Description must be max 50 characters long.
+    </mat-error>
   </mat-form-field>
 
   <app-creation-date formControlName="creationDate"></app-creation-date>
 
   <mat-form-field>
     <input matInput placeholder="Duration" formControlName="duration" name="duration" required>
+    <mat-error *ngIf="courseForm.get('duration').hasError('required') && courseForm.get('duration').touched">
+      Duration is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="courseForm.get('duration').hasError('notNumber') && courseForm.get('duration').touched">
+      Duration must be only numbers.
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-select placeholder="Authors" formControlName="authors" multiple required>
       <mat-option *ngFor="let author of availableAuthorList$ | async" [value]="author.id">{{author.name}}</mat-option>
     </mat-select>
+    <mat-error *ngIf="courseForm.get('authors').hasError('required') && courseForm.get('authors').touched">
+      Author is <strong>required</strong>
+    </mat-error>
   </mat-form-field>
 
   <button type="submit" mat-stroked-button [disabled]="courseForm.invalid">Save</button>
