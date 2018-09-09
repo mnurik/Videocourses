@@ -18,7 +18,7 @@ export const coursesInitialState: CoursesStateInterface = {
     name: '',
     description: '',
     authors: [],
-    creationDate: new Date().getTime(),
+    creationDate: '',
     duration: 0,
     liked: false,
     isTopRated: false,

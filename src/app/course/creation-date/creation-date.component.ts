@@ -11,8 +11,8 @@ import * as moment from 'moment';
         (keyup)="onChange($event)"
         [value]="creationDate"
         required >
-      <mat-error *ngIf="!creationDate">Creation Date is <strong>required</strong></mat-error>
-      <mat-error *ngIf="dateError">Date must be DD/MM/YYYY formatted.</mat-error>
+      <span *ngIf="!creationDate">Creation Date is <strong>required</strong></span>
+      <span *ngIf="creationDate && dateError">Date must be DD/MM/YYYY formatted.</span>
     </mat-form-field>
   `,
   styles: [
@@ -75,6 +75,7 @@ export class CreationDateComponent implements ControlValueAccessor, Validator {
     if (moment(newValue, 'DD/MM/YYYY', true).isValid()) {
       this.data = newValue;
       this.dateError = false;
+      this.creationDate = newValue;
     } else {
       this.dateError = true;
     }

@@ -1,7 +1,7 @@
 import { CourseClass } from './course-class';
 
 export const mockCourses = [
-  new CourseClass(0, 'Learn Angular', 'Angular is Awesome', 1514761200000, 50, [
+  new CourseClass(0, 'Learn Angular', 'Angular is Awesome', '11/11/2011', 50, [
     {
       id: 1370,
       firstName: 'Polly',
@@ -12,7 +12,7 @@ export const mockCourses = [
     1,
     'Learn TypeScript',
     'Lorem ipsum dolor sit amet.',
-    1484175600000,
+    '11/11/2011',
     120,
     [
       {
@@ -23,14 +23,14 @@ export const mockCourses = [
     ],
     true,
   ),
-  new CourseClass(2, 'Learn React', 'React is Awesome', 1546297200000, 230, [
+  new CourseClass(2, 'Learn React', 'React is Awesome', '11/11/2011', 230, [
     {
       id: 1370,
       firstName: 'Polly',
       lastName: 'Sosa',
     },
   ]),
-  new CourseClass(3, 'Learn Vue', 'Vue is Awesome', new Date().getTime(), 30, [
+  new CourseClass(3, 'Learn Vue', 'Vue is Awesome', '11/11/2011', 30, [
     {
       id: 1370,
       firstName: 'Polly',

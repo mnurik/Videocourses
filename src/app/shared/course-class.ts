@@ -7,7 +7,7 @@ export class CourseClass implements CourseInterface {
     public id: number,
     public name: string,
     public description: string,
-    public creationDate: number,
+    public creationDate: string,
     public duration: number,
     public authors: AuthorsInterface[],
     public isTopRated: boolean = false,
