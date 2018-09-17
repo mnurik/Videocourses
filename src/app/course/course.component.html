@@ -19,7 +19,7 @@
     </mat-error>
   </mat-form-field>
 
-  <app-creation-date formControlName="creationDate"></app-creation-date>
+  <app-creation-date [formControl]="courseForm.get('creationDate')" formControlName="creationDate"></app-creation-date>
 
   <mat-form-field>
     <input matInput placeholder="Duration" formControlName="duration" name="duration" required>
