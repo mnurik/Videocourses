@@ -23,7 +23,7 @@ export class CourseComponent implements OnInit, OnDestroy {
   public course$: Observable<CourseInterface>;
   public availableAuthorList$: Observable<AuthorInterface[]>;
   public courseName = '';
-  public courseForm: any;
+  public courseForm: FormGroup;
 
   constructor(private route: ActivatedRoute, private store$: Store<AppState>, private fb: FormBuilder) {
     this.courseForm = this.fb.group({
