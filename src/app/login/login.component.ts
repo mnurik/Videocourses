@@ -1,12 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { LoginRequestAction } from '../store/actions/login.actions';
 import { LoginStateInterface } from '../store/reducers/login.reducer';
 import { AppState } from '../store/store.interface';
-import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +12,7 @@ import { LoginService } from './login.service';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   public errorMessage$;
   public loginForm = new FormGroup({
     login: new FormControl('', Validators.required),
@@ -23,11 +21,14 @@ export class LoginComponent {
 
   constructor(private store$: Store<AppState>) { }
 
-  public onSubmit() {
-    this.store$.dispatch(new LoginRequestAction(this.loginForm.value));
+  ngOnInit() {
     this.errorMessage$ = this.store$.pipe(
       select('login'),
       map((loginState: LoginStateInterface) => loginState.errorMessage),
     );
+  }
+
+  public onSubmit() {
+    this.store$.dispatch(new LoginRequestAction(this.loginForm.value));
   }
 }

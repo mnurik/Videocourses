@@ -45,6 +45,7 @@
       "name": "sit voluptate eiusmod ea",
       "description": "Commodo id sunt sunt adipisicing et aliquip voluptate laborum consectetur. Occaecat nisi sint exercitation ullamco adipisicing irure est in consectetur aute voluptate. Ea pariatur dolor anim ea reprehenderit ut non occaecat magna adipisicing exercitation nisi consequat.",
       "isTopRated": true,
+      "liked": false,
       "creationDate": "2017-03-25T12:57:37+00:00",
       "authors": [
         {
@@ -65,6 +66,7 @@
       "name": "reprehenderit est veniam elit",
       "description": "Consectetur veniam non nulla in laboris minim ipsum. Dolor aliqua irure sint do irure magna tempor culpa quis. Deserunt amet occaecat velit sit.",
       "isTopRated": true,
+      "liked": false,
       "creationDate": "2016-03-18T06:36:07+00:00",
       "authors": [
         {
@@ -90,6 +92,7 @@
       "name": "reprehenderit eiusmod nostrud amet",
       "description": "Est consequat deserunt officia fugiat culpa in aliquip consectetur. Est nostrud occaecat cillum elit officia officia ea magna et minim officia commodo sunt. Deserunt duis minim magna nostrud enim enim commodo sit elit nostrud cillum aliquip est qui.",
       "isTopRated": true,
+      "liked": false,
       "creationDate": "2017-01-18T19:10:51+00:00",
       "authors": [
         {
@@ -170,6 +173,7 @@
       "name": "minim amet proident est",
       "description": "Fugiat velit aliquip quis veniam culpa consequat fugiat voluptate magna exercitation eiusmod sit qui. Dolor nostrud enim commodo non eu ut nostrud aliquip aute anim ex veniam eiusmod esse. Eu nulla non dolore et voluptate labore ipsum est sit nisi qui.",
       "isTopRated": true,
+      "liked": false,
       "creationDate": "2017-07-07T10:38:59+00:00",
       "authors": [
         {
@@ -210,6 +214,7 @@
       "name": "proident do non aute",
       "description": "Ut aliqua exercitation in sit non adipisicing amet. Occaecat et fugiat minim officia ut in non et nulla. Nisi incididunt culpa ad magna do laboris.",
       "isTopRated": true,
+      "liked": false,
       "creationDate": "2017-02-18T22:01:43+00:00",
       "authors": [
         {
@@ -295,6 +300,7 @@
       "name": "aute do ipsum sint",
       "description": "Quis laboris laboris nostrud cupidatat sit labore sint amet ipsum elit deserunt in tempor. Excepteur dolor elit enim nostrud consequat eu ullamco ullamco pariatur consectetur duis voluptate. Irure laborum occaecat id veniam culpa aliqua dolor cupidatat enim sunt fugiat.",
       "isTopRated": true,
+      "liked": false,
       "creationDate": "2017-07-14T10:57:08+00:00",
       "authors": [
         {
@@ -455,6 +461,7 @@
       "name": "voluptate labore id voluptate",
       "description": "Ullamco veniam ea eu ad laborum nisi tempor qui ullamco. Irure officia labore irure in id fugiat sint labore esse. Officia reprehenderit ut ea dolore excepteur do.",
       "isTopRated": true,
+      "liked": false,
       "creationDate": "2017-03-18T16:27:27+00:00",
       "authors": [
         {
@@ -500,6 +507,7 @@
       "name": "ea est ex veniam",
       "description": "Nostrud incididunt veniam consectetur cillum. Pariatur culpa dolor esse elit aliqua duis. Adipisicing exercitation nostrud ullamco occaecat ut et.",
       "isTopRated": true,
+      "liked": false,
       "creationDate": "2017-09-08T19:51:30+00:00",
       "authors": [
         {
@@ -615,6 +623,7 @@
       "name": "sint ipsum laboris id",
       "description": "Fugiat anim eu duis nulla. Consectetur tempor sint nisi ex laborum. Et voluptate nulla est nostrud velit ipsum minim nostrud proident aliquip exercitation commodo quis.",
       "isTopRated": true,
+      "liked": false,
       "creationDate": "2016-12-03T04:50:39+00:00",
       "authors": [
         {
@@ -645,6 +654,7 @@
       "name": "sint velit ullamco do",
       "description": "Deserunt nulla nisi tempor ea tempor officia qui occaecat consectetur aliqua esse occaecat. Cillum anim veniam pariatur sint. Lorem Lorem aute anim culpa duis commodo officia labore laborum eiusmod qui irure amet pariatur.",
       "isTopRated": true,
+      "liked": false,
       "creationDate": "2017-10-07T09:23:08+00:00",
       "authors": [
         {

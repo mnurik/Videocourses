@@ -48,7 +48,7 @@ describe('HeaderComponent', () => {
   });
 
   it('should call logout service for onLogout method', () => {
-    component.onLogOut();
+    component.logout();
     expect(LoginServiceStub.logout).toHaveBeenCalledTimes(1);
   });
 
