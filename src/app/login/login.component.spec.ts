@@ -9,9 +9,8 @@ import { RouterModule } from '../../../node_modules/@angular/router';
 import { UserInterface } from '../shared/user-interface';
 import { LoginRequestAction } from '../store/actions/login.actions';
 import { LoginComponent } from './login.component';
-import { LoginService } from './login.service';
 
-fdescribe('LoginComponent', () => {
+describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let StoreStub;
@@ -44,7 +43,7 @@ fdescribe('LoginComponent', () => {
     component.loginForm.setValue(fakeUser);
     component.onSubmit();
     expect(StoreStub.dispatch.calls.count()).toBe(1);
-    expect(StoreStub.dispatch.calls.argsFor(0)).toEqual(new LoginRequestAction(fakeUser));
+    expect(StoreStub.dispatch.calls.argsFor(0)[0]).toEqual(new LoginRequestAction(fakeUser));
   });
 
   it('should call login method in service for onSubmit method', () => {
@@ -52,11 +51,12 @@ fdescribe('LoginComponent', () => {
     component.loginForm.setValue(fakeUser);
     expect(fixture.nativeElement.querySelector('[name="inputLogin"]').value).toBe('admin');
     expect(fixture.nativeElement.querySelector('[name="inputPassword"]').value).toBe('123');
+    fixture.detectChanges();
+    expect(component.loginForm.invalid).toBe(false);
     const hostElement = fixture.nativeElement;
     const submitButton: HTMLElement = hostElement.querySelector('button[type="submit"]');
     submitButton.click();
     expect(onSubmitSpy).toHaveBeenCalledTimes(1);
-    expect(StoreStub.dispatch.calls.argsFor(0)).toEqual(new LoginRequestAction(fakeUser));
   });
 
 });
