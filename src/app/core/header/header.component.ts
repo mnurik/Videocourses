@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { LoginService } from '../../login/login.service';
 import { GetUserInfoRequestAction, LogoutAction } from '../../store/actions/login.actions';
 import { LoginStateInterface } from '../../store/reducers/login.reducer';
