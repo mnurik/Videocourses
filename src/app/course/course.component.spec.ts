@@ -4,35 +4,48 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import { CoursesService } from '../home/courses.service';
 import { LoginComponent } from '../login/login.component';
+import { CourseClass } from '../shared/course-class';
 import { CourseInterface } from '../shared/course-interface';
+import { AppState } from '../store/store.interface';
 import { CourseComponent } from './course.component';
 
-describe('CourseComponent', () => {
+fdescribe('CourseComponent', () => {
   let component: CourseComponent;
   let fixture: ComponentFixture<CourseComponent>;
   let getByIdSpy;
   let coursesService;
   let de;
-  const fakeCourse: Partial<CourseInterface> = {
-    id: -1,
-    name: 'Test Name',
-    creationDate: '01/01/2001',
-  };
+  const fakeCourse: CourseInterface = new CourseClass(
+    -1,
+    'test name',
+    '',
+    '',
+    123,
+    [],
+    false,
+  );
+  let StoreStub;
 
   beforeEach(async(() => {
     coursesService = jasmine.createSpyObj('CoursesService', ['getById', 'onCreate', 'onUpdate']);
     getByIdSpy = coursesService.getById.and.returnValue(fakeCourse);
+    StoreStub = jasmine.createSpyObj('Store', ['dispatch', 'pipe']);
+    StoreStub.pipe.and.returnValue(of(fakeCourse));
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: 'login', component: LoginComponent }]), FormsModule],
+      imports: [RouterTestingModule.withRoutes([{ path: 'login', component: LoginComponent }]), FormsModule, ReactiveFormsModule],
       declarations: [CourseComponent, LoginComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
         { provide: CoursesService, useValue: coursesService },
+        { provide: Store, useValue: StoreStub },
+        FormBuilder,
       ],
     })
       .compileComponents();
@@ -42,10 +55,11 @@ describe('CourseComponent', () => {
     fixture = TestBed.createComponent(CourseComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
+    component.courseForm.setValue(fakeCourse);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  fit('should create', () => {
     expect(component).toBeTruthy();
   });
 

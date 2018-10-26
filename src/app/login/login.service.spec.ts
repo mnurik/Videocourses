@@ -1,7 +1,6 @@
-import { inject, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { HttpClient } from '@angular/common/http';
-import { UserInterface } from '../shared/user-interface';
 import { LoginRequestAction } from '../store/actions/login.actions';
 import { LoginService } from './login.service';
 
